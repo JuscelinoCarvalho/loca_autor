@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4384017658",
+    "project_id": "loca-auto-fiap",
+    "storage_bucket": "loca-auto-fiap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4384017658:android:a63e71abc86eac5c820d43",
+        "android_client_info": {
+          "package_name": "com.jussa.locaautos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4384017658-9p1lh515fuu1h2fn9kddbaqno6s751od.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdJUw1XLHDQjajXvvBZj4A4M3oOQ5aKX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4384017658-9p1lh515fuu1h2fn9kddbaqno6s751od.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

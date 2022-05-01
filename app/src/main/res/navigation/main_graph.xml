@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/loginFragment"
+    >
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.jussa.locaautos.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+        <action
+            android:id="@+id/action_loginFragment_to_autoFragment"
+            app:destination="@id/autoFragment">
+            <argument android:name="argEmail" app:argType="string" app:nullable="true" />
+            <argument android:name="argPassword" app:argType="string" app:nullable="true" />
+        </action>
+        <action
+            android:id="@+id/action_loginFragment_to_listAutoFragment"
+            app:destination="@id/listAutoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cadastroFragment"
+        android:name="com.jussa.locaautos.ui.CadastroFragment"
+        android:label="fragment_cadsatro"
+        tools:layout="@layout/fragment_cadastro" >
+        <action
+            android:id="@+id/action_cadastroFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+
+        <argument android:name="argEmail" app:argType="string" app:nullable="true" />
+        <argument android:name="argPassword" app:argType="string" app:nullable="true" />
+        <action
+            android:id="@+id/action_cadastroFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.jussa.locaautos.ui.SuccessFragment"
+        android:label="fragment_success"
+        tools:layout="@layout/fragment_success" >
+        <action
+            android:id="@+id/action_successFragment_to_listAutoFragment"
+            app:destination="@id/listAutoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/autoFragment"
+        android:name="com.jussa.locaautos.ui.auto.AutoFragment"
+        android:label="auto_fragment"
+        tools:layout="@layout/auto_fragment">
+
+        <argument android:name="Usuario" app:argType="string" app:nullable="true" />
+        <argument android:name="Chassi" app:argType="string" app:nullable="true" />
+        <argument android:name="Imagem" app:argType="string" app:nullable="true" />
+        <argument android:name="Descricao" app:argType="string" app:nullable="true" />
+        <argument android:name="MarcaModelo" app:argType="string" app:nullable="true" />
+
+        <action
+            android:id="@+id/action_autoFragment_to_listAutoFragment"
+            app:destination="@id/listAutoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listAutoFragment"
+        android:name="com.jussa.locaautos.ui.auto.ListAutoFragment"
+        android:label="ListAutoFragment"
+        app:moduleName="@string/marca_modelo_veiculo">
+        <action
+            android:id="@+id/action_listAutoFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+        <action
+            android:id="@+id/action_listAutoFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_listAutoFragment_to_autoFragment"
+            app:destination="@id/autoFragment" />
+    </fragment>
+</navigation>
