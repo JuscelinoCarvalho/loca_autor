@@ -28,7 +28,6 @@ import androidx.navigation.findNavController
 import com.google.firebase.storage.FirebaseStorage
 import com.jussa.locaautos.R
 import java.io.ByteArrayOutputStream
-import java.io.OutputStream
 import kotlin.math.min
 
 
@@ -44,6 +43,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
     private lateinit var btnGravar: Button
     private lateinit var btnCancelar: Button
+    private lateinit var btnExcluir: Button
 
     private lateinit var varTxtCHASSI: EditText
     private lateinit var imgVwCarro: ImageView
@@ -52,7 +52,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
     private lateinit var bmp: Bitmap
 
-    private var refBase = FirebaseStorage.getInstance().getReference("loca_autos_img")
+    private var refBase = FirebaseStorage.getInstance().reference.child("loca_autos_img/")
 
 
     companion object {
@@ -115,6 +115,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
         btnGravar = view.findViewById(R.id.btnGravarCarro)
         btnCancelar = view.findViewById(R.id.btnCancelarCarro)
+        btnExcluir = view.findViewById(R.id.btnDeleteAuto)
 
         varTxtMarcaModelo = view.findViewById(R.id.txtMarcaModelo)
         imgVwCarro = view.findViewById(R.id.imgCarro)
@@ -131,8 +132,10 @@ class AutoFragment : Fragment(), View.OnClickListener {
             varTxtDescricaoVeiculo.setText(vDesc)
             varTxtCHASSI.setText(vChassi)
 
-        }else{
+            view.findViewById<Button>(R.id.btnDeleteAuto).setOnClickListener(this)
 
+        }else{
+            btnExcluir.isEnabled = false
             btnGravar.isEnabled = true
             btnCancelar.text = getString(R.string.cancelar)
 
@@ -196,26 +199,40 @@ class AutoFragment : Fragment(), View.OnClickListener {
                 }
             }
             R.id.btnGravarCarro -> {
-                val outStream: OutputStream = ByteArrayOutputStream(1024)
-                val drw = imgVwCarro.drawable
-                bmp = drw.current.toBitmap(100,100)
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream )
 
-                val uploadTask = refBase.putBytes((outStream as ByteArrayOutputStream).toByteArray())
-                    .addOnSuccessListener {
-                        vImage = it.storage.path
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(context, "Erro ao efetuar o UPLOAD", Toast.LENGTH_SHORT).show()
-                    }
-                context?.let { Autos() }?.writeNewAuto(
-                    varTxtCHASSI.text.toString(),
-                    varTxtDescricaoVeiculo.text.toString(),
-                    vImage.toString(),
-                    varTxtMarcaModelo.text.toString()
-                )
-                //car.writeNewAuto()
-            }
+                try {
+                    bmp =  imgVwCarro.drawable.toBitmap()
+                    val outStream = ByteArrayOutputStream()
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream )
+
+                    refBase.putBytes(outStream.toByteArray())
+                        .addOnSuccessListener {
+                            vImage = it.storage.path
+                            context?.let { Autos() }?.writeNewAuto(
+                                varTxtCHASSI.text.toString(),
+                                varTxtDescricaoVeiculo.text.toString(),
+                                vImage.toString(),
+                                varTxtMarcaModelo.text.toString()
+                            )
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Erro ao efetuar o UPLOAD", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnProgressListener {
+
+                        /*
+                            var progress: Long = (
+                                    100 * it.bytesTransferred / it.totalByteCount
+                                    )
+                            //progress.dia TODO()
+  */
+                        }
+                }catch (e: Exception){
+                    Toast.makeText(context, "Erro na Aplicação..: \n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
+                }
+
+            } //btnGravar
+
             R.id.btnCancelarCarro -> {
                 //context?.let { Autos(it) }?.readAutoByCHASSI("CHASSIGOL1990")
                 //if(btnCancelar.text == "VOLTAR"){
@@ -223,6 +240,16 @@ class AutoFragment : Fragment(), View.OnClickListener {
                     //activity?.supportFragmentManager?.popBackStackImmediate(R.id.listAutoFragment,0)
                     //getFragmentManager().popBackStackImmediate();
                 //}
+            }
+            R.id.btnDeleteAuto -> {
+                val vkey = varTxtCHASSI.text.toString()
+
+                if (vkey != "" && vkey != "null"){
+                    context?.let { Autos() }?.deleteAuto(
+                        varTxtCHASSI.text.toString()
+                    )
+                    navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
+                }
             }
         }//when
 

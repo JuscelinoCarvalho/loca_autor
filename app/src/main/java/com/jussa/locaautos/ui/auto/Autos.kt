@@ -21,15 +21,28 @@ class Autos {
     private val myRef = fBase.getReference(nomeDB)
 
     fun uploadAutoImage(imgPath: String): StorageReference {
-
         val uRi: Uri = Uri.parse(imgPath)
         fStorageRef.putFile(uRi)
         return fStorageRef
-
     }
 
     fun getAutoImage(imgPath: String): StorageReference {
         return fStorageRef.child(imgPath)
+    }
+
+    fun deleteAuto(pChassi: String) {
+        if (pChassi != "null" && pChassi != "") {
+            myRef.child(pChassi).removeValue()
+                .addOnCompleteListener {
+                }
+                .addOnFailureListener {
+                    Toast.makeText(
+                        context,
+                        "Erro ao tentar excluir o veículo!\n${it.printStackTrace()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
     }
 
     fun writeNewAuto(

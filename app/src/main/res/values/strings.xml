@@ -31,5 +31,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="chassi_example">CHASSI: 9BWHE21JX24060960</string>
     <string name="imagem_do_veiculo">Imagem do Veiculo</string>
+    <string name="excluir">Excluir</string>
 
 </resources>

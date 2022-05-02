@@ -1,12 +1,10 @@
 package com.jussa.locaautos
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.jussa.locaautos.ui.auto.AutoFragment
 import com.jussa.locaautos.ui.auto.AutoFragmentArgs
 
 
