@@ -1,6 +1,9 @@
 package com.jussa.locaautos
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,11 +96,16 @@ class RecyclerAdapter(private val parentlistAutos: ArrayList<DataAuto>): Recycle
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
         val vAuto = parentlistAutos[position]
-
-        holder.itemChassi.text = vAuto.key_chassi
-        holder.itemImage.setImageResource(drawable.car_mini)
-        holder.itemDetails.text = vAuto.descricao
-        holder.itemTitle.text = vAuto.marca_modelo
+        val drwlb: Drawable? = BitmapDrawable.createFromPath(vAuto.imagem.toString())
+        try {
+            holder.itemImage.setImageDrawable(drwlb) //setImageResource(drawable.car_mini)
+        }catch (e: Exception){
+            Log.d("ERROR DRAWABLE", "Erro Drawable Jussa..: ${e.printStackTrace()}")
+        }finally {
+            holder.itemChassi.text = vAuto.key_chassi
+            holder.itemDetails.text = vAuto.descricao
+            holder.itemTitle.text = vAuto.marca_modelo
+        }
 
     }
 

@@ -2,6 +2,7 @@ package com.jussa.locaautos.ui.login
 
 //import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,23 +48,51 @@ class LoginFragment : Fragment(), View.OnClickListener   {
             R.id.btnLogin -> {
                 try {
                     connect = FirebaseAuth.getInstance()
-                    connect.signInWithEmailAndPassword(vTxtEmailLogin.text.toString(), vTxtPassLogin.text.toString())
-                        .addOnSuccessListener {
-                            //Toast.makeText(this.context, x.toString(), Toast.LENGTH_SHORT).show()
-                            bundle = bundleOf (
-                                "argEmail" to vTxtEmailLogin.text.toString(),
-                                "argPassword" to  vTxtPassLogin.text.toString()
-                            )
-                            //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
-                            navController.navigate(R.id.action_loginFragment_to_listAutoFragment)
-                        } //onSuccess
-                        .addOnFailureListener {
-                            Toast.makeText(context, "Erro ao efetuar o login: \n ${it.cause.toString()}", Toast.LENGTH_LONG).show()
-                        } //onFailure
-                        }catch(e: Exception) {
-                    Toast.makeText(requireContext(), "Erro da aplicação!", Toast.LENGTH_SHORT).show()
+                    //val vUser = connect.currentUser?.displayName
+                    //if (vUser == "" || vUser == null) {
+                        connect.signInWithEmailAndPassword(
+                            vTxtEmailLogin.text.toString(),
+                            vTxtPassLogin.text.toString()
+                        )
+                      .addOnCompleteListener {
+                        when {
+                            it.isComplete -> {
+                                bundle = bundleOf(
+                                    "argEmail" to vTxtEmailLogin.text.toString(),
+                                    "argPassword" to vTxtPassLogin.text.toString()
+                                )
+                                //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
+                                navController.navigate(R.id.action_loginFragment_to_listAutoFragment)
+                            }
+                            it.isCanceled -> {
+                                //
+                            }
+                            it.isSuccessful -> {
+                                bundle = bundleOf(
+                                    "argEmail" to vTxtEmailLogin.text.toString(),
+                                    "argPassword" to vTxtPassLogin.text.toString()
+                                )
+                                //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
+                                navController.navigate(R.id.action_loginFragment_to_listAutoFragment)
+                            }
+                            it.exception != null -> {
+                                Log.d("LoginFragment", "Erro ao efetuar login: \n${it.exception.toString()}")
+                                //Toast.makeText(context,"Erro ao efetuar o login: \n ${it.exception.toString()}", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                    //Add On Success
+                    // .addOnSuccessListener {
+                    //Toast.makeText(this.context, x.toString(), Toast.LENGTH_SHORT).show()
+                    //} //onSuccess
+                    .addOnFailureListener {
+                        Log.d("LoginFragment", "Erro ao efetuar o login: \n ${it.cause.toString()}")
+                        //Toast.makeText(context, "Erro ao efetuar o login: \n ${it.cause.toString()}", Toast.LENGTH_LONG).show()
+                    } //onFailure
+                }catch(e: Exception) {
+                    Log.d("LoginFragment", "Erro na Aplicacao!")
+                    //Toast.makeText(requireContext(), "Erro da aplicação!", Toast.LENGTH_SHORT).show()
                 }
-
             }
         }
         //progressBar.setProgress()

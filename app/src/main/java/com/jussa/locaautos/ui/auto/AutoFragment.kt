@@ -97,7 +97,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
                     imgVwCarro.setImageBitmap(bmp)
 
                 }catch (e: Exception){
-                    Toast.makeText(context, e.printStackTrace().toString(), Toast.LENGTH_SHORT).show()
+                    Log.d("AutoFragment", "${e.printStackTrace()}")
+                    //Toast.makeText(context, e.printStackTrace().toString(), Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -201,34 +202,18 @@ class AutoFragment : Fragment(), View.OnClickListener {
             R.id.btnGravarCarro -> {
 
                 try {
-                    bmp =  imgVwCarro.drawable.toBitmap()
-                    val outStream = ByteArrayOutputStream()
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream )
 
-                    refBase.putBytes(outStream.toByteArray())
-                        .addOnSuccessListener {
-                            vImage = it.storage.path
+                    bmp =  imgVwCarro.drawable.toBitmap()
+                    vImage = context?.let { Autos() }?.uploadAutoImage(bmp,varTxtCHASSI.text.toString())
                             context?.let { Autos() }?.writeNewAuto(
                                 varTxtCHASSI.text.toString(),
                                 varTxtDescricaoVeiculo.text.toString(),
                                 vImage.toString(),
                                 varTxtMarcaModelo.text.toString()
                             )
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(context, "Erro ao efetuar o UPLOAD", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnProgressListener {
-
-                        /*
-                            var progress: Long = (
-                                    100 * it.bytesTransferred / it.totalByteCount
-                                    )
-                            //progress.dia TODO()
-  */
-                        }
                 }catch (e: Exception){
-                    Toast.makeText(context, "Erro na Aplicação..: \n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
+                    Log.d("AutoFragment", "Erro na Aplicacao..: \n" + "${e.printStackTrace()}")
+                    //Toast.makeText(context, "Erro na Aplicação..: \n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
                 }
 
             } //btnGravar

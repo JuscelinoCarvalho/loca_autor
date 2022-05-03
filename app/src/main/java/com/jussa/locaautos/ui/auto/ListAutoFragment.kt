@@ -2,6 +2,7 @@ package com.jussa.locaautos.ui.auto
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,10 +35,7 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
     private lateinit var dataRef: DatabaseReference
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list_auto, container, false)
     }
@@ -79,7 +77,8 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, "A tarefa foi cancelada!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "A tarefa foi cancelada!", Toast.LENGTH_SHORT).show()
+                    Log.d("CANCELED", "Nao foi possivel obter os dados do Automovel.")
                 }
 
             }
@@ -108,7 +107,8 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
                     firebaseInstance.signOut()
                     navController.navigate(R.id.action_listAutoFragment_to_loginFragment)
                 }catch (e: Exception){
-                    Toast.makeText(context, "Erro ao tentar sair e voltar à tela de login.\n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Erro ao tentar sair e voltar à tela de login.\n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
+                    Log.d("ListAutoFragment", "Erro ao tentar sair e voltar a tela de login\n${e.printStackTrace()}")
                 }
 
             }
