@@ -19,14 +19,8 @@
             app:exitAnim="@anim/slide_out_left"
             />
         <action
-            android:id="@+id/action_loginFragment_to_autoFragment"
-            app:destination="@id/autoFragment">
-            <argument android:name="argEmail" app:argType="string" app:nullable="true" />
-            <argument android:name="argPassword" app:argType="string" app:nullable="true" />
-        </action>
-        <action
-            android:id="@+id/action_loginFragment_to_listAutoFragment"
-            app:destination="@id/listAutoFragment" />
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/cadastroFragment"
@@ -54,8 +48,8 @@
         android:label="fragment_success"
         tools:layout="@layout/fragment_success" >
         <action
-            android:id="@+id/action_successFragment_to_listAutoFragment"
-            app:destination="@id/listAutoFragment" />
+            android:id="@+id/action_successFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/autoFragment"
@@ -79,13 +73,33 @@
         android:label="ListAutoFragment"
         app:moduleName="@string/marca_modelo_veiculo">
         <action
-            android:id="@+id/action_listAutoFragment_to_successFragment"
-            app:destination="@id/successFragment" />
+            android:id="@+id/action_listAutoFragment_to_autoFragment"
+            app:destination="@id/autoFragment" />
+        <action
+            android:id="@+id/action_listAutoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_listAutoFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_listAutoFragment_to_autoFragment"
-            app:destination="@id/autoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.jussa.locaautos.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_listAutoFragment"
+            app:destination="@id/listAutoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.jussa.locaautos.ui.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

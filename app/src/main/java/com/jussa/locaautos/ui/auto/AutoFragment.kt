@@ -25,9 +25,9 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.jussa.locaautos.R
-import java.io.ByteArrayOutputStream
 import kotlin.math.min
 
 
@@ -52,7 +52,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
     private lateinit var bmp: Bitmap
 
-    private var refBase = FirebaseStorage.getInstance().reference.child("loca_autos_img/")
+//    private var refBase = FirebaseStorage.getInstance().reference.child("loca_autos_img/")
 
 
     companion object {
@@ -73,9 +73,10 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
         vUsuario = requireActivity().intent.extras?.get("Usuario") as String
         vChassi = requireActivity().intent.extras?.get("Chassi") as String
-        vImage = requireActivity().intent.extras?.get("Imagem") as String
+        //vImage = requireActivity().intent.extras?.get("Imagem") as String
         vDesc = requireActivity().intent.extras?.get("Descricao") as String
         vMarcaModelo = requireActivity().intent.extras?.get("MarcaModelo") as String
+
 
         permReqLauncher.launch(permission.READ_EXTERNAL_STORAGE)
 
@@ -133,6 +134,25 @@ class AutoFragment : Fragment(), View.OnClickListener {
             varTxtDescricaoVeiculo.setText(vDesc)
             varTxtCHASSI.setText(vChassi)
 
+            val fbaseInstance = FirebaseStorage.getInstance() //.getReferenceFromUrl("gs://loca-auto-fiap.appspot.com")
+            val fbaseStore = fbaseInstance.getReference("loca_autos_img/")
+            try {
+                fbaseStore.child("$vChassi.jpg").downloadUrl
+                    .addOnSuccessListener {
+                        Glide.with(context)
+                            .load(it.toString())
+                            .into(imgVwCarro)
+                    }
+                    .addOnFailureListener{
+                        Log.d("ERROR onFailureListener", "Erro Jussa..: ${it.printStackTrace()}")
+                    }
+            }catch (e: Exception){
+                Log.d("ERROR DRAWABLE", "Erro Drawable Jussa..: ${e.printStackTrace()}")
+            }finally {
+
+
+            }
+
             view.findViewById<Button>(R.id.btnDeleteAuto).setOnClickListener(this)
 
         }else{
@@ -142,7 +162,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
             // Create a new bitmap and display it on image view
             imgVwCarro.setImageBitmap(
-                drawCircle(Color.RED,Color.YELLOW,700,400)
+                drawCircle(Color.YELLOW,Color.YELLOW,700,400)
             )
 
             view.findViewById<ImageView>(R.id.imgCarro).setOnClickListener(this)
@@ -168,7 +188,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
     @Deprecated("Deprecated in Java") //Método não é mais usado, pois está como DEPRECATED
     // Substitui pelo register declarando como RegisterActivityForResultLauncher inicializado
-    //no metodo onCreate pois nos Fragments ele dá erro se implementalo depois de criado o Fragment
+    //no metodo onCreate pois nos Fragments ele dá erro se implementa-lo depois de criado o Fragment
     //então chamado com o método ...launch() passando a Intent já com type 'image/*' e action
     //igual a ACTION_GET_CONTENT para abrir a galeria. Também poderia chamar como IMAGE_PICK
     //para obter a partir da camera de fotografia.
@@ -180,21 +200,26 @@ class AutoFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
+        when (v!!.id) {
             R.id.imgCarro -> {
-                Toast.makeText(context, "Você clicou em: \n${view.toString()}", Toast.LENGTH_SHORT).show()
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    if(checkSelfPermission(this.requireContext(), permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                Toast.makeText(context, "Você clicou em: \n${view.toString()}", Toast.LENGTH_SHORT)
+                    .show()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(
+                            this.requireContext(),
+                            permission.READ_EXTERNAL_STORAGE
+                        ) == PackageManager.PERMISSION_DENIED
+                    ) {
                         //permission denied
                         val permission = permission.READ_EXTERNAL_STORAGE
                         //requestPermissions(permissions, PERMISSION_CODE)
                         permReqLauncher.launch(permission)
                         pickImage()
-                    }else{
+                    } else {
                         //permission already granted
                         pickImage()
                     }
-                }else{
+                } else {
                     //System OS is < Marshmallow
                     pickImage()
                 }
@@ -203,42 +228,47 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
                 try {
 
-                    bmp =  imgVwCarro.drawable.toBitmap()
-                    vImage = context?.let { Autos() }?.uploadAutoImage(bmp,varTxtCHASSI.text.toString())
-                            context?.let { Autos() }?.writeNewAuto(
-                                varTxtCHASSI.text.toString(),
-                                varTxtDescricaoVeiculo.text.toString(),
-                                vImage.toString(),
-                                varTxtMarcaModelo.text.toString()
-                            )
-                }catch (e: Exception){
+                    bmp = imgVwCarro.drawable.toBitmap()
+                    vImage =
+                        context?.let { Autos() }?.uploadAutoImage(bmp, varTxtCHASSI.text.toString())
+                    context?.let { Autos() }?.writeNewAuto(
+                        varTxtCHASSI.text.toString(),
+                        varTxtDescricaoVeiculo.text.toString(),
+                        vImage.toString(),
+                        varTxtMarcaModelo.text.toString()
+                    )
+                } catch (e: Exception) {
                     Log.d("AutoFragment", "Erro na Aplicacao..: \n" + "${e.printStackTrace()}")
                     //Toast.makeText(context, "Erro na Aplicação..: \n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
                 }
+                navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
 
             } //btnGravar
 
             R.id.btnCancelarCarro -> {
                 //context?.let { Autos(it) }?.readAutoByCHASSI("CHASSIGOL1990")
                 //if(btnCancelar.text == "VOLTAR"){
-                    navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
-                    //activity?.supportFragmentManager?.popBackStackImmediate(R.id.listAutoFragment,0)
-                    //getFragmentManager().popBackStackImmediate();
+                navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
+                //activity?.supportFragmentManager?.popBackStackImmediate(R.id.listAutoFragment,0)
+                //getFragmentManager().popBackStackImmediate();
                 //}
             }
             R.id.btnDeleteAuto -> {
                 val vkey = varTxtCHASSI.text.toString()
 
-                if (vkey != "" && vkey != "null"){
+                if (vkey != "" && vkey != "null") {
                     context?.let { Autos() }?.deleteAuto(
                         varTxtCHASSI.text.toString()
                     )
-                    navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
                 }
+                navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
             }
+
         }//when
 
     }
+
+
 
     // Method to draw a circle on a canvas and generate bitmap
     private fun drawCircle(bgColor:Int=Color.TRANSPARENT,

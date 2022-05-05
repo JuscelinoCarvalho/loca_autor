@@ -37,7 +37,7 @@ class SuccessFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View){
         when(v.id){
-            R.id.btnOkSuccess -> navController.navigate(R.id.action_successFragment_to_listAutoFragment)
+            R.id.btnOkSuccess -> navController.navigate(R.id.action_successFragment_to_loginFragment)
         }
     }
 

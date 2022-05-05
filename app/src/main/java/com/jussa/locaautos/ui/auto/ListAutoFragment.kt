@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -21,7 +24,6 @@ import com.jussa.locaautos.AutoActivity
 import com.jussa.locaautos.R
 import com.jussa.locaautos.RecyclerAdapter
 import com.jussa.locaautos.data.DataAuto
-import kotlin.collections.ArrayList
 
 
 class ListAutoFragment : Fragment(), View.OnClickListener {
@@ -33,7 +35,7 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
     private lateinit var vListAutos: ArrayList<DataAuto>
     private var firebaseInstance: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var dataRef: DatabaseReference
-
+    private lateinit var btnDeleteItens: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -50,6 +52,7 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
 
         imgBtnSignOut = view.findViewById(R.id.imgBtnSignOut)
         imgBtnNewCar = view.findViewById(R.id.imgBtnNewCar)
+        btnDeleteItens = view.findViewById(R.id.btnDeleteItens)
 
         imgBtnNewCar.setOnClickListener(this)
         imgBtnSignOut.setOnClickListener(this)
@@ -88,6 +91,11 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when(v!!.id){
+
+            btnDeleteItens.id -> {
+                btnDeleteItens.visibility = INVISIBLE
+            }//Delete Itens Clicked!
+
             imgBtnNewCar.id -> {
 
                 val intent = Intent(context, AutoActivity::class.java).apply {
@@ -105,6 +113,8 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
             imgBtnSignOut.id -> {
                 try {
                     firebaseInstance.signOut()
+                    //Mata todas as telas e sai do aplicativo
+                    finishAffinity(this.requireActivity())
                     navController.navigate(R.id.action_listAutoFragment_to_loginFragment)
                 }catch (e: Exception){
                     //Toast.makeText(context, "Erro ao tentar sair e voltar à tela de login.\n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()

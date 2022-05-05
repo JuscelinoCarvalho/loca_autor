@@ -11,8 +11,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgs
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.Navigator
+import androidx.navigation.Navigator.Extras
 import com.google.firebase.auth.FirebaseAuth
 import com.jussa.locaautos.R
 
@@ -57,12 +60,14 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                       .addOnCompleteListener {
                         when {
                             it.isComplete -> {
+                                /*
                                 bundle = bundleOf(
                                     "argEmail" to vTxtEmailLogin.text.toString(),
                                     "argPassword" to vTxtPassLogin.text.toString()
                                 )
                                 //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
-                                navController.navigate(R.id.action_loginFragment_to_listAutoFragment)
+                                navController.navigate(R.id.action_loginFragment_to_homeFragment)
+                            */
                             }
                             it.isCanceled -> {
                                 //
@@ -73,7 +78,7 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                                     "argPassword" to vTxtPassLogin.text.toString()
                                 )
                                 //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
-                                navController.navigate(R.id.action_loginFragment_to_listAutoFragment)
+                                navController.navigate(R.id.action_loginFragment_to_homeFragment, bundle)
                             }
                             it.exception != null -> {
                                 Log.d("LoginFragment", "Erro ao efetuar login: \n${it.exception.toString()}")
@@ -86,8 +91,8 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                     //Toast.makeText(this.context, x.toString(), Toast.LENGTH_SHORT).show()
                     //} //onSuccess
                     .addOnFailureListener {
-                        Log.d("LoginFragment", "Erro ao efetuar o login: \n ${it.cause.toString()}")
-                        //Toast.makeText(context, "Erro ao efetuar o login: \n ${it.cause.toString()}", Toast.LENGTH_LONG).show()
+                        Log.d("LoginFragment", "Erro ao efetuar o login: \n ${it.printStackTrace()}")
+                        Toast.makeText(context, "Erro ao efetuar o login: \n ${it.printStackTrace()}", Toast.LENGTH_LONG).show()
                     } //onFailure
                 }catch(e: Exception) {
                     Log.d("LoginFragment", "Erro na Aplicacao!")

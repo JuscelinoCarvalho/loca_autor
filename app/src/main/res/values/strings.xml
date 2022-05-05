@@ -32,5 +32,19 @@
     <string name="chassi_example">CHASSI: 9BWHE21JX24060960</string>
     <string name="imagem_do_veiculo">Imagem do Veiculo</string>
     <string name="excluir">Excluir</string>
+    <string name="delete">Delete</string>
+    <string name="select_all">Select all</string>
+    <string name="new_auto">* New</string>
+    <string name="delete_itens">Delete Itens..</string>
+    <string name="loca_autos">LOCA AUTOS</string>
+    <string name="lista_de_ve_culos_dispon_veis">Lista de Veículos Disponíveis</string>
+    <string name="desc_loca_autos">
+        Este aplicativo lhe mostrara uma lista de veiculos que estao disponiveis para loacao. Independente da operadora, lhes mostraremos o titulo do veiculo e uma descricao que constara o local/regiao e dados de contado da empresa locadora.
+
+        Nao nos responsabilizamos por nenhum dos acordos firmados entre o client e o locadores, assim como nao nos responsabilizamos por danos de qualquer natureza.
+
+        Estamos aqui somente como um facilitador, portanto, aproveitem e consultem nossa lista abaixo:
+    </string>
+    <string name="sair">SAIR</string>
 
 </resources>
