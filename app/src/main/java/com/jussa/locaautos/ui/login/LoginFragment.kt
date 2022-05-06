@@ -57,9 +57,9 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                             vTxtEmailLogin.text.toString(),
                             vTxtPassLogin.text.toString()
                         )
-                      .addOnCompleteListener {
-                        when {
-                            it.isComplete -> {
+                      .addOnCompleteListener {signIn ->
+                            if(signIn.isComplete){
+                                Log.d("LOGIN_COMPLETE", "Estrou no isComplete do Login")
                                 /*
                                 bundle = bundleOf(
                                     "argEmail" to vTxtEmailLogin.text.toString(),
@@ -69,23 +69,22 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                                 navController.navigate(R.id.action_loginFragment_to_homeFragment)
                             */
                             }
-                            it.isCanceled -> {
-                                //
+                          if(signIn.isCanceled){
+                              Log.d("LOGIN_CANCELED", "Estrou no isCanceled do Login")
+                          //
                             }
-                            it.isSuccessful -> {
+                          if(signIn.isSuccessful) {
                                 bundle = bundleOf(
                                     "argEmail" to vTxtEmailLogin.text.toString(),
                                     "argPassword" to vTxtPassLogin.text.toString()
                                 )
                                 //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
                                 navController.navigate(R.id.action_loginFragment_to_homeFragment, bundle)
-                            }
-                            it.exception != null -> {
-                                Log.d("LoginFragment", "Erro ao efetuar login: \n${it.exception.toString()}")
+                            }else{
+                                Log.d("LoginFragment", "Erro ao efetuar login: \n${signIn.exception.toString()}")
                                 //Toast.makeText(context,"Erro ao efetuar o login: \n ${it.exception.toString()}", Toast.LENGTH_LONG).show()
                             }
                         }
-                    }
                     //Add On Success
                     // .addOnSuccessListener {
                     //Toast.makeText(this.context, x.toString(), Toast.LENGTH_SHORT).show()
@@ -102,5 +101,7 @@ class LoginFragment : Fragment(), View.OnClickListener   {
         }
         //progressBar.setProgress()
     }
+
+
 
 } /* CLASS */
