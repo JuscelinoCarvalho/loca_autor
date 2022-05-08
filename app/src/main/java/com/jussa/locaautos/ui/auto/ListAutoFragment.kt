@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,22 +19,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.jussa.locaautos.AutoActivity
+import com.jussa.locaautos.LocaAutosAdapter
 import com.jussa.locaautos.R
-import com.jussa.locaautos.RecyclerAdapter
 import com.jussa.locaautos.data.DataAuto
 
 
-class ListAutoFragment : Fragment(), View.OnClickListener {
+class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickListener*/ {
 
     private lateinit var recyclerViewAuto: RecyclerView
+    private lateinit var toolbar: Toolbar
     private lateinit var imgBtnNewCar: ImageButton
     private lateinit var imgBtnSignOut: ImageButton
+    private lateinit var imgBtnHome: ImageButton
+    private lateinit var imgBtnExcluir: ImageButton
     private lateinit var navController: NavController
     private lateinit var vListAutos: ArrayList<DataAuto>
     private var firebaseInstance: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var dataRef: DatabaseReference
-    private lateinit var btnDeleteItens: Button
+    private var selecteds = ArrayList<Int>()
+    private var myAutoActivity: AutoActivity? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list_auto, container, false)
@@ -45,6 +51,8 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbar = view.findViewById(R.id.toolbarListAuto)
+        myAutoActivity = AutoActivity()
         recyclerViewAuto = view.findViewById(R.id.recyclerViewAuto)
         recyclerViewAuto.hasFixedSize()
         recyclerViewAuto.layoutManager = LinearLayoutManager(activity)
@@ -52,10 +60,13 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
 
         imgBtnSignOut = view.findViewById(R.id.imgBtnSignOut)
         imgBtnNewCar = view.findViewById(R.id.imgBtnNewCar)
-        btnDeleteItens = view.findViewById(R.id.btnDeleteItens)
+        imgBtnHome = view.findViewById(R.id.imgBtnHome)
+        imgBtnExcluir = view.findViewById(R.id.imgBtnExcluir)
 
         imgBtnNewCar.setOnClickListener(this)
         imgBtnSignOut.setOnClickListener(this)
+        imgBtnHome.setOnClickListener(this)
+        imgBtnExcluir.setOnClickListener(this)
 
         navController = view.findNavController()
 
@@ -76,7 +87,9 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
                             vListAutos.add(vAuto!!)
                         }
                     }
-                    recyclerViewAuto.adapter = RecyclerAdapter(vListAutos)
+                    recyclerViewAuto.adapter = myAutoActivity?.let {
+                        LocaAutosAdapter(vListAutos, it)
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -89,12 +102,7 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-
         when(v!!.id){
-
-            btnDeleteItens.id -> {
-                btnDeleteItens.visibility = INVISIBLE
-            }//Delete Itens Clicked!
 
             imgBtnNewCar.id -> {
 
@@ -122,8 +130,39 @@ class ListAutoFragment : Fragment(), View.OnClickListener {
                 }
 
             }
+
+            imgBtnHome.id -> {
+                navController.navigate(R.id.action_listAutoFragment_to_homeFragment)
+
+            }
         }
     }
+
+    /*
+    override fun onLongClick(v: View?): Boolean {
+        imgChecked = v!!.findViewById(R.id.auto_checked)
+
+        onItemLongClicked(v.id)
+        if (selecteds.count() > 0){
+            lnrLayout.visibility = View.VISIBLE
+            btnDeleteItens.visibility = View.VISIBLE
+        }else{
+            lnrLayout.visibility = INVISIBLE
+            btnDeleteItens.visibility = INVISIBLE
+        }
+        return true
+    }
+
+    private fun onItemLongClicked(position: Int){
+        if(imgChecked.visibility == View.VISIBLE){
+            imgChecked.visibility = INVISIBLE
+            selecteds.remove(position)
+        }else {
+            imgChecked.visibility = View.VISIBLE
+            selecteds.add(position)
+        }
+    }
+*/
 
 }
 

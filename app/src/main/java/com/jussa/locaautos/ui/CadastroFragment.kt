@@ -13,8 +13,6 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.jussa.locaautos.R
 
@@ -22,14 +20,8 @@ class CadastroFragment : Fragment(), View.OnClickListener {
 
     var navController: NavController? = null
     private lateinit var txtNovoEmail: EditText
-    private lateinit var txtNovoUsuario: EditText
     private lateinit var txtNovoPassword: EditText
     private lateinit var connCreateUser: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +37,8 @@ class CadastroFragment : Fragment(), View.OnClickListener {
 
         view.findViewById<Button>(R.id.btnCancelar).setOnClickListener(this)
         view.findViewById<Button>(R.id.btnCadastroUsuario).setOnClickListener(this)
-        txtNovoUsuario = view.findViewById<EditText>(R.id.txtNovoUsuario)
-        txtNovoEmail = view.findViewById<EditText>(R.id.txtNovoEmail)
-        txtNovoPassword = view.findViewById(R.id.txtPassword)
+        txtNovoEmail = view.findViewById(R.id.txtNovoEmail)
+        txtNovoPassword = view.findViewById(R.id.txtNovoPassword)
 
     }
 
@@ -59,15 +50,17 @@ class CadastroFragment : Fragment(), View.OnClickListener {
                 if(!TextUtils.isEmpty(txtNovoEmail.text.toString()) && !TextUtils.isEmpty(txtNovoPassword.text.toString()) ){
                     try {
                         connCreateUser = FirebaseAuth.getInstance()
-                        connCreateUser.createUserWithEmailAndPassword(txtNovoEmail.text.toString(), txtNovoPassword.toString())
-                            .addOnSuccessListener {
-                                Toast.makeText(context, it.user.toString(), Toast.LENGTH_SHORT).show()
-                                val bundle = bundleOf("argUserLogin" to txtNovoEmail.text.toString())
-                                navController!!.navigate(R.id.action_cadastroFragment_to_successFragment, bundle)
+                        connCreateUser.createUserWithEmailAndPassword(txtNovoEmail.text.toString(), txtNovoPassword.text.toString())
+                            .addOnCompleteListener {
+                                if(it.isSuccessful){
+                                    Toast.makeText(context, "Usuário criado com SUCESSO!!!", Toast.LENGTH_SHORT).show()
+                                    val bundle = bundleOf("argUserLogin" to txtNovoEmail.text.toString())
+                                    navController!!.navigate(R.id.action_cadastroFragment_to_successFragment, bundle)
+                                }
                             }
                             .addOnFailureListener {
-                            Toast.makeText(context, "Ocorreu um erro ao criar o usuário: \n ${it.cause.toString()}", Toast.LENGTH_LONG).show()
-                        }
+                                Toast.makeText(context, "Ocorreu um erro ao criar o usuário: \n ${it.cause.toString()}", Toast.LENGTH_LONG).show()
+                            }
                     }catch (e: Exception){
                         Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
                     }

@@ -1,40 +1,44 @@
 package com.jussa.locaautos
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.jussa.locaautos.ui.auto.AutoFragmentArgs
 
 
-class AutoActivity : AppCompatActivity(){
+class AutoActivity() : AppCompatActivity(){
 
-companion object {
-    private const val IS_PRIVACY_POLICY_ACCEPTED="isPrivacyPolicyAccepted"
-    private const val IMAGE_PICK_CODE = 1000
-    private const val PERMISSION_CODE = 1001
+   companion object AutoActivity {
 
-    fun open(context: Context, isAcceptedNewPrivacyPolicy: Boolean){
-        context.startActivity(
+       private const val IS_PRIVACY_POLICY_ACCEPTED="isPrivacyPolicyAccepted"
+       private const val IMAGE_PICK_CODE = 1000
+       private const val PERMISSION_CODE = 1001
+       lateinit var recyclerView: RecyclerView
+
+        fun open(context: Context, isAcceptedNewPrivacyPolicy: Boolean){
+            context.startActivity(
             Intent(context,AutoActivity::class.java).apply {
                 putExtra(IS_PRIVACY_POLICY_ACCEPTED, "isPrivacyPolicyAccepted")
-            }
-        )
-    }
-}
+                }
+            )
+        }
+
+   } ///// COMPANION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_auto)
 
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_auto_fragment)
         val navControler = navHostFragment?.findNavController()
         val graphInflater = navControler?.navInflater
         val navGraph = graphInflater?.inflate(R.navigation.main_graph)
-
-
+    
         val destination = if (intent.getBooleanExtra(IS_PRIVACY_POLICY_ACCEPTED,false)){
             R.id.activity_auto
         }else{
@@ -70,4 +74,7 @@ companion object {
             }
         }
     }
+
+
+
 }

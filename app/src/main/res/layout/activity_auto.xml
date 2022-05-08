@@ -7,7 +7,7 @@
     android:id="@+id/activity_auto"
     tools:context=".AutoActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_auto_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         tools:layout="@layout/auto_fragment"

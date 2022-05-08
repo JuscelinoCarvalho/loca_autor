@@ -3,19 +3,28 @@ package com.jussa.locaautos
 
 import android.content.Intent
 import android.util.Log
-import android.view.*
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.jussa.locaautos.R.*
+import com.jussa.locaautos.R.id
+import com.jussa.locaautos.R.layout
 import com.jussa.locaautos.data.DataAuto
+import com.jussa.locaautos.ui.auto.Autos
 
-class RecyclerAdapter(private val parentlistAutos: ArrayList<DataAuto>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class LocaAutosAdapter(private val parentlistAutos: ArrayList<DataAuto>, myAutoActivity: AutoActivity): RecyclerView.Adapter<LocaAutosAdapter.LocaAutosViewHolder>(), View.OnClickListener {/*PARENT CLASS*/
+
+
+    private lateinit var myAutoViewHolder: LocaAutosViewHolder
+    private var act: AutoActivity = myAutoActivity
+
 
     /*
         private var titles = arrayOf("Carro Esportivo", "Mini Carro", "Carro Popular", "Carro Eletrico",
@@ -50,111 +59,61 @@ class RecyclerAdapter(private val parentlistAutos: ArrayList<DataAuto>): Recycle
     */
 
 
-    inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-
+    inner class LocaAutosViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var itemChassi: TextView? = itemView.findViewById(id.item_chassi)
         var itemImage: ImageView = itemView.findViewById(id.item_image)
         var itemDetails: TextView = itemView.findViewById(id.item_details)
         var itemTitle: TextView = itemView.findViewById(id.item_title)
-
-        private var imgChecked: ImageView = itemView.findViewById(id.auto_checked)
-        private var btnDeleteItens: Button? = itemView.findViewById(id.btnDeleteItens)
-
-        private var selecteds = ArrayList<Int>()
-
+        private var imgBtnExcluir: ImageButton = itemView.findViewById(id.btn_card_delete)
 
         init {
-            //Toast.makeText(itemView.context, "Chassi: ${itemChassi.text}", Toast.LENGTH_SHORT).show()
-            val listParentAutos = parentlistAutos
+//
+//            val toolBar: Toolbar = act.findViewById(R.id.list_auto_fragment)
+//            val botao = toolBar.findViewById<ImageButton>(R.id.imgBtnExcluir)
+//            botao.visibility = VISIBLE
 
-            btnDeleteItens?.setOnClickListener {
-                //layoutPosition
+            //myAutoViewHolder = this
+            itemView.setOnClickListener{
+                this@LocaAutosAdapter.onClick(itemView, layoutPosition)
             }
 
-            itemView.setOnClickListener {
-                val position: Int = absoluteAdapterPosition
-                val context = itemView.context
-                val vUser = FirebaseAuth.getInstance().currentUser?.email
-                val intent = Intent(context, AutoActivity::class.java).apply {
-                val vauto = listParentAutos[position]
-/*
-                    putExtra("Usuario", vUser)
-                    putExtra("Chassi", parentlistAutos[position].key_chassi.toString())
-                    putExtra("Imagem",  parentlistAutos[position].imagem.toString())
-                    putExtra("Descricao", parentlistAutos[position].descricao.toString())
-                    putExtra("MarcaModelo", parentlistAutos[position].marca_modelo.toString())
-*/
-                    putExtra("Usuario", vUser)
-                    putExtra("Chassi", vauto.key_chassi) //extras?.getString("chassi"))
-                    putExtra("Imagem",  vauto.imagem)
-                    putExtra("Descricao", vauto.descricao.toString())
-                    putExtra("MarcaModelo", vauto.marca_modelo.toString())
+            imgBtnExcluir.setOnClickListener {
+                //val dbFb = FirebaseDatabase.getInstance().getReference("autos")
+                val vAutos = Autos()
+                vAutos.deleteAuto(itemChassi?.text.toString())
+                parentlistAutos.clear()
+            //this@LocaAutosAdapter.;
+            //this@LocaAutosAdapter.notifyDataSetChanged()
 
-
-                }
-                startActivity(context, intent, intent.extras)
-            }
-
-            //Vinculo o listener de Long Click na View do Recycler atual
-             itemView.setOnLongClickListener {
-
-                 val position: Int = absoluteAdapterPosition
-                 val context = itemView.context
-
-                 val intent = Intent(it.context, AutoActivity::class.java).apply {
-                     itemChassi?.text = extras?.getString("chassi")
-                 }
-
-                 if (it != null){
-                    onItemLongClicked(layoutPosition)
-                     if (selecteds.count() > 0){
-                         btnDeleteItens?.visibility = VISIBLE
-                     }else{
-                         btnDeleteItens?.visibility = INVISIBLE
-                     }
-                    if (itemChassi == null){
-
-                    }
-                     Toast.makeText(it.context, "TESTE JK!!...${intent.extras}", Toast.LENGTH_SHORT).show()
-                 return@setOnLongClickListener true
-                 }else{
-                     return@setOnLongClickListener false
-                 }
-             }
-
-        }
-
-
-        /*private fun onItemClicked(position: Int){
-            if (position >= 0) {
-                imgChecked.visibility = VISIBLE
-            }
-        }*/
-
-        private fun onItemLongClicked(position: Int){
-            if (position >= 0) {
-                if(imgChecked.visibility == VISIBLE){
-                    imgChecked.visibility = INVISIBLE
-                    selecteds.remove(position)
-                }else{
-                    imgChecked.visibility = VISIBLE
-                    selecteds.add(position)
-                }
             }
         }
 
 
     } ////*Inner Class*/
 
+    fun onClick(p0: View?, pos: Int) {
+            val context = p0!!.context
+            val vUser = FirebaseAuth.getInstance().currentUser?.email
 
-    
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
-        val v = LayoutInflater.from(viewGroup.context).inflate(layout.card_layout, viewGroup, false)
-        return ViewHolder(v)
-
+            val intent = Intent(context, AutoActivity::class.java ).apply{
+                val listParentAutos = parentlistAutos
+                val vauto = listParentAutos[pos]
+                putExtra("Usuario", vUser)
+                putExtra("Chassi", vauto.key_chassi) //extras?.getString("chassi"))
+                putExtra("Imagem",  vauto.imagem)
+                putExtra("Descricao", vauto.descricao.toString())
+                putExtra("MarcaModelo", vauto.marca_modelo.toString())
+            }
+       return startActivity(context, intent, intent.extras)
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): LocaAutosAdapter.LocaAutosViewHolder {
+        val v = LayoutInflater.from(viewGroup.context).inflate(layout.card_layout, viewGroup, false)
+        myAutoViewHolder = LocaAutosViewHolder(v)
+        return myAutoViewHolder
+    }
+
+    override fun onBindViewHolder(holder: LocaAutosAdapter.LocaAutosViewHolder, position: Int) {
         val vAuto = parentlistAutos[position]
         val fbaseInstance = FirebaseStorage.getInstance() //.getReferenceFromUrl("gs://loca-auto-fiap.appspot.com")
         val fbaseStore = fbaseInstance.getReference("loca_autos_img/")
@@ -180,8 +139,11 @@ class RecyclerAdapter(private val parentlistAutos: ArrayList<DataAuto>): Recycle
     }
 
     override fun getItemCount(): Int {
-        //return titles.size
         return parentlistAutos.size
     }
 
-}/*PARENT CLASS*/
+    override fun onClick(p0: View?) {
+        //
+    }
+
+}

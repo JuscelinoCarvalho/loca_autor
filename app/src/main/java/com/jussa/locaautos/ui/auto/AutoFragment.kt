@@ -13,11 +13,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.checkSelfPermission
@@ -123,55 +124,44 @@ class AutoFragment : Fragment(), View.OnClickListener {
         imgVwCarro = view.findViewById(R.id.imgCarro)
         varTxtDescricaoVeiculo = view.findViewById(R.id.txtDescricaoVeiculo)
         varTxtCHASSI = view.findViewById(R.id.txtChassi)
-
         navController = view.findNavController()
 
         if(vChassi != null && vChassi != "") {
-            btnGravar.isEnabled = false
+            btnExcluir.visibility = VISIBLE
             btnCancelar.text = getString(R.string.voltar)
+            view.findViewById<Button>(R.id.btnDeleteAuto).setOnClickListener(this)
+        }else {
+            btnExcluir.visibility = INVISIBLE
+            btnCancelar.text = getString(R.string.cancelar)
+        }
+
+        val fbaseInstance = FirebaseStorage.getInstance() //.getReferenceFromUrl("gs://loca-auto-fiap.appspot.com")
+        val fbaseStore = fbaseInstance.getReference("loca_autos_img/")
+        try {
 
             varTxtMarcaModelo.setText(vMarcaModelo)
             varTxtDescricaoVeiculo.setText(vDesc)
             varTxtCHASSI.setText(vChassi)
 
-            val fbaseInstance = FirebaseStorage.getInstance() //.getReferenceFromUrl("gs://loca-auto-fiap.appspot.com")
-            val fbaseStore = fbaseInstance.getReference("loca_autos_img/")
-            try {
-                fbaseStore.child("$vChassi.jpg").downloadUrl
-                    .addOnSuccessListener {
-                        Glide.with(context)
-                            .load(it.toString())
-                            .into(imgVwCarro)
-                    }
-                    .addOnFailureListener{
-                        Log.d("ERROR onFailureListener", "Erro Jussa..: ${it.printStackTrace()}")
-                    }
-            }catch (e: Exception){
-                Log.d("ERROR DRAWABLE", "Erro Drawable Jussa..: ${e.printStackTrace()}")
-            }finally {
-
-
-            }
-
-            view.findViewById<Button>(R.id.btnDeleteAuto).setOnClickListener(this)
-
-        }else{
-            btnExcluir.isEnabled = false
-            btnGravar.isEnabled = true
-            btnCancelar.text = getString(R.string.cancelar)
-
-            // Create a new bitmap and display it on image view
-            imgVwCarro.setImageBitmap(
-                drawCircle(Color.YELLOW,Color.YELLOW,700,400)
-            )
-
-            view.findViewById<ImageView>(R.id.imgCarro).setOnClickListener(this)
-            view.findViewById<Button>(R.id.btnGravarCarro).setOnClickListener(this)
+            fbaseStore.child("$vChassi.jpg").downloadUrl
+                .addOnSuccessListener {
+                    Glide.with(context)
+                        .load(it.toString())
+                        .into(imgVwCarro)
+                }
+                .addOnFailureListener{
+                    Log.d("ERROR onFailureListener", "Erro Jussa..: ${it.printStackTrace()}")
+                }
+        }catch (e: Exception){
+            Log.d("ERROR DRAWABLE", "Erro Drawable Jussa..: ${e.printStackTrace()}")
         }
+
+        view.findViewById<ImageView>(R.id.imgCarro).setOnClickListener(this)
+        view.findViewById<Button>(R.id.btnGravarCarro).setOnClickListener(this)
         view.findViewById<Button>(R.id.btnCancelarCarro).setOnClickListener(this)
 
+    } //ON VIEW CREATED
 
-    }
     @Suppress("unused")
 
 
@@ -202,8 +192,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.imgCarro -> {
-                Toast.makeText(context, "Você clicou em: \n${view.toString()}", Toast.LENGTH_SHORT)
-                    .show()
+                //Toast.makeText(context, "Você clicou em: \n${view.toString()}", Toast.LENGTH_SHORT).show()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(
                             this.requireContext(),
@@ -227,10 +216,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
             R.id.btnGravarCarro -> {
 
                 try {
-
                     bmp = imgVwCarro.drawable.toBitmap()
-                    vImage =
-                        context?.let { Autos() }?.uploadAutoImage(bmp, varTxtCHASSI.text.toString())
+                    vImage = context?.let { Autos() }?.uploadAutoImage(bmp, varTxtCHASSI.text.toString())
                     context?.let { Autos() }?.writeNewAuto(
                         varTxtCHASSI.text.toString(),
                         varTxtDescricaoVeiculo.text.toString(),

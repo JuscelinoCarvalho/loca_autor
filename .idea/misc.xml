@@ -12,10 +12,12 @@
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/drawable/ic_sign_out.xml" value="0.2565" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/drawable/progress_back.xml" value="0.1805" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/drawable/round_drawable.xml" value="0.23" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout-v26/fragment_list.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout-v26/fragment_list_auto.xml" value="0.536" />
-        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/activity_auto.xml" value="0.1" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/activity_auto.xml" value="0.2" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/auto_fragment.xml" value="0.264" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/auto_tool_bar.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/card_layout.xml" value="0.536" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_about.xml" value="0.23777173913043478" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_auto_list.xml" value="0.2" />
@@ -23,11 +25,14 @@
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_cadastro.xml" value="0.259375" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_cadsatro.xml" value="0.259375" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_home.xml" value="0.264" />
-        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_list_auto.xml" value="0.6" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_list.xml" value="0.21354166666666666" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_list_auto.xml" value="0.23842592592592593" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_success.xml" value="0.2" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/fragment_update_app.xml" value="0.20989583333333334" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/layout/main_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/menu/delete_menu.xml" value="0.19375" />
+        <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/menu/list_auto_menu.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/jkarv/AndroidStudioProjects/LocaAutos/app/src/main/res/menu/menu_loca_autos.xml" value="0.259375" />
       </map>
     </option>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -38,6 +39,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.btnHomeSair -> {
                 FirebaseAuth.getInstance().signOut()
+                //Mata todas as telas e sai do aplicativo
+                ActivityCompat.finishAffinity(this.requireActivity())
                 navController.navigate(R.id.action_homeFragment_to_loginFragment)
             }
         }//when

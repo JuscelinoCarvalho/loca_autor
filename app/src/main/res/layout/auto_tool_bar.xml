@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbarListAuto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/blue_jussa"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:titleTextColor="@android:color/holo_red_dark">
+
+        <ImageButton
+            android:id="@+id/imgBtnNewCar"
+            android:backgroundTint="@color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/new_car_for_rent"
+            android:src="@drawable/ic_car_automobile" />
+
+        <ImageButton
+            android:id="@+id/imgBtnSignOut"
+            android:backgroundTint="@color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/sign_out"
+            android:src="@drawable/ic_exit_24" />
+
+        <ImageButton
+            android:id="@+id/imgBtnHome"
+            android:contentDescription="@string/pagina_principal"
+            android:backgroundTint="@color/white"
+            android:layout_width="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_home" />
+
+        <ImageButton
+            android:id="@+id/imgBtnExcluir"
+            android:backgroundTint="@color/white"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_delete_24"
+            android:contentDescription="@string/excluir"
+            android:visibility="invisible"
+            />
+</androidx.appcompat.widget.Toolbar>

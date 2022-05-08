@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/card_layout"
     android:layout_margin="5dp"
     app:cardBackgroundColor="#81C784"
     app:cardCornerRadius="12dp"
@@ -14,25 +13,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/auto_checked"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/btn_card_delete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginBottom="32dp"
-            android:src="@drawable/ic_baseline_check_circle_24"
+            android:backgroundTint="#81C784"
+            android:contentDescription="@string/excluir"
+            android:src="@drawable/ic_delete_24"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/item_details"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.652"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/item_title"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            >
-
-        </ImageView>
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
         <ImageView
             android:id="@+id/item_image"
@@ -46,10 +44,10 @@
 
         <TextView
             android:id="@+id/item_title"
-            android:layout_width="182dp"
-            android:layout_height="57dp"
+            android:layout_width="201dp"
+            android:layout_height="47dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.073"
@@ -84,7 +82,6 @@
 
 
         <TextView
-            android:id="@+id/item_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
