@@ -31,7 +31,7 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
     private lateinit var imgBtnNewCar: ImageButton
     private lateinit var imgBtnSignOut: ImageButton
     private lateinit var imgBtnHome: ImageButton
-    private lateinit var imgBtnExcluir: ImageButton
+    private lateinit var imgBtnAbout: ImageButton
     private lateinit var navController: NavController
     private lateinit var vListAutos: ArrayList<DataAuto>
     private var firebaseInstance: FirebaseAuth = FirebaseAuth.getInstance()
@@ -61,12 +61,12 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
         imgBtnSignOut = view.findViewById(R.id.imgBtnSignOut)
         imgBtnNewCar = view.findViewById(R.id.imgBtnNewCar)
         imgBtnHome = view.findViewById(R.id.imgBtnHome)
-        imgBtnExcluir = view.findViewById(R.id.imgBtnExcluir)
+        imgBtnAbout = view.findViewById(R.id.imgAbout)
 
         imgBtnNewCar.setOnClickListener(this)
         imgBtnSignOut.setOnClickListener(this)
         imgBtnHome.setOnClickListener(this)
-        imgBtnExcluir.setOnClickListener(this)
+        imgBtnAbout.setOnClickListener(this)
 
         navController = view.findNavController()
 
@@ -133,6 +133,11 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
 
             imgBtnHome.id -> {
                 navController.navigate(R.id.action_listAutoFragment_to_homeFragment)
+
+            }
+
+            imgBtnAbout.id -> {
+                navController.navigate(R.id.action_listAutoFragment_to_aboutFragment)
 
             }
         }

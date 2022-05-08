@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LocaAutos">
         <activity
+            android:name=".ui.about.AboutFragment"
+            android:exported="false" />
+        <activity
+            android:name=".about.About"
+            android:exported="false" />
+        <activity
             android:name=".AutoActivity"
             android:exported="false" />
         <activity

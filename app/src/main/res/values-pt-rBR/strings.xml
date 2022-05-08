@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="type_new_email">Novo E-mail</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="type_user_pwrd">Nova Senha</string>
+    <string name="gravar">Gravar</string>
+    <string name="avatar">Avatar</string>
+    <string name="password">Senha</string>
+    <string name="email">E-mail</string>
+    <string name="prompt_email">E-mail</string>
+    <string name="nome">Nome</string>
+    <string name="sign_in">Entrar</string>
+    <string name="register">Inscrever</string>
+    <string name="resgistro_ok">Dados salvo com sucesso</string>
+    <string name="button_ok">Ok</string>
+    <string name="descricao_veiculo">Descrição do Veículo</string>
+    <string name="descricao">Descrição</string>
+    <string name="marca_modelo_veiculo">Marca / Modelo - Veículo</string>
+    <string name="descrico_do_veiculo">Descrição do Veículo</string>
+    <string name="novo_usuario">Novo Usuário</string>
+    <string name="selecione_uma_imagem">"Selecione Uma Imagem "</string>
+    <string name="voltar">Voltar</string>
+    <string name="sign_out">Sair</string>
+    <string name="chassi_example">Chassi: 9BWHE21JX24060960</string>
+    <string name="imagem_do_veiculo">Imagem do Veículo</string>
+    <string name="excluir">Excluir</string>
+    <string name="delete">Deletar</string>
+    <string name="select_all">Selecione Todos</string>
+    <string name="new_auto">Novo</string>
+    <string name="delete_itens">Excluir Itens</string>
+    <string name="lista_de_ve_culos_dispon_veis">Lista de Veículos Disponíveis</string>
+    <string name="sair">Sair</string>
+    <string name="pagina_principal">Home</string>
+    <string name="new_car_for_rent">Novo</string>
+    <string name="version">Versão:</string>
+    <string name="developers">Desenvolvedores:</string>
+    <string name="desc_loca_autos">This app will show you a list of vehicles that are available for rental. Regardless of the operator, we will show you the vehicle title and a description that will include the location/region and contact details of the rental company. We are not responsible for any of the agreements signed between the client and the lessor, nor are we responsible for damages of any nature. We are only here as a facilitator, so take advantage and check out our list below:</string>
+    <string name="about">Sobre</string>
+</resources>

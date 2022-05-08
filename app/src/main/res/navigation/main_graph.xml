@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_listAutoFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_listAutoFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -92,13 +95,14 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.jussa.locaautos.ui.AboutFragment"
+        android:name="com.jussa.locaautos.ui.about.AboutFragment"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_listAutoFragment"
+            app:destination="@id/listAutoFragment" />
+    </fragment>
 </navigation>

@@ -1,46 +1,49 @@
 <resources>
-    <string name="app_name">LocaAutos</string>
+    <string name="app_name" translatable="false">LocaAutos</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="type_new_email">Digite o novo e-mail</string>
-    <string name="cancelar">CANCELAR</string>
-    <string name="type_new_user">Digite o nome do novo usuário</string>
-    <string name="type_user_pwrd">Digite o novo PassWord</string>
-    <string name="gravar">GRAVAR</string>
-    <string name="avatar">Avatar</string>
-    <string name="email">Email</string>
+    <string name="type_new_email">Type new e-mail</string>
+    <string name="cancelar">Cancel</string>
+    <string name="type_new_user" translatable="false">Type a new user name</string>
+    <string name="type_user_pwrd">Type a new password</string>
+    <string name="gravar">Record</string>
+    <string name="avatar">Alias</string>
+    <string name="email">E-mail</string>
     <string name="password">Password</string>
-    <string name="nome">Nome</string>
-    <string name="sign_in">SIGN IN</string>
+    <string name="nome">Name</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="resgistro_ok">Dados Gravados com Sucesso!</string>
-    <string name="button_ok">OK</string>
-    <string name="marca_modelo_veiculo">Marca / Modelo - Veículo</string>
-    <string name="descrico_do_veiculo">Descrição do Veículo</string>
-    <string name="novo_usuario">Novo usuário</string>
+    <string name="resgistro_ok">Successfully Saved Data!</string>
+    <string name="button_ok">Ok</string>
+    <string name="descricao_veiculo">Description Vehicle</string>
+    <string name="descricao">Description</string>
+    <string name="marca_modelo_veiculo">Brand / Model - Vehicle</string>
+    <string name="descrico_do_veiculo">Description Vehicle</string>
+    <string name="novo_usuario">New User</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="voltar">VOLTAR</string>
-    <string name="chassi_example">CHASSI: 9BWHE21JX24060960</string>
-    <string name="imagem_do_veiculo">Imagem do Veiculo</string>
-    <string name="excluir">Excluir</string>
-    <string name="loca_autos">LOCA AUTOS</string>
-    <string name="lista_de_ve_culos_dispon_veis">Lista de Veículos Disponíveis</string>
-    <string name="desc_loca_autos">
-        Este aplicativo lhe mostrara uma lista de veiculos que estao disponiveis para loacao. Independente da operadora, lhes mostraremos o titulo do veiculo e uma descricao que constara o local/regiao e dados de contado da empresa locadora.
-
-        Nao nos responsabilizamos por nenhum dos acordos firmados entre o client e o locadores, assim como nao nos responsabilizamos por danos de qualquer natureza.
-
-        Estamos aqui somente como um facilitador, portanto, aproveitem e consultem nossa lista abaixo:
-    </string>
-    <string name="sair">SAIR</string>
-    <string name="new_car_for_rent">Novo *</string>
-    <string name="sign_out">SAIR</string>
-    <string name="delete_itens">EXCLUIR ITENS</string>
-    <string name="delete">DELETE</string>
-    <string name="pagina_principal">Pagina Principal</string>
-    <string name="app_name_by_jussa">Loca Autos... by Jussa</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="selecione_uma_imagem">Select a Image</string>
+    <string name="voltar">Back</string>
+    <string name="new_car_for_rent">New *</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="chassi_example">Chassis: 9BWHE21JX24060960</string>
+    <string name="imagem_do_veiculo">Vehicle Imagem</string>
+    <string name="excluir">Delete</string>
+    <string name="delete">Delete</string>
+    <string name="select_all">Select all</string>
+    <string name="new_auto">* New</string>
+    <string name="delete_itens">Delete Itens..</string>
+    <string name="loca_autos" translatable="false">LOCA AUTOS</string>
+    <string name="lista_de_ve_culos_dispon_veis">List of Available Vehicles</string>
+    <string name="desc_loca_autos">"Este aplicativo lhe mostrará uma lista de veiculos que estao disponíveis para locação. Independente da operadora, lhes mostraremos o título do veículo e uma descrição que constará o local/região e dados de contato da empresa locadora. Não nos responsabilizamos por nenhum dos acordos firmados entre o cliente e o locadores, assim como não nos responsabilizamos por danos de qualquer natureza. Estamos aqui somente como um facilitador, portanto, aproveitem e consultem nossa lista abaixo:"</string>
+    <string name="sair">Go Out</string>
+    <string name="pagina_principal">Início</string>
+    <string name="app_name_by_jussa" translatable="false">Loca Autos... by Jussa</string>
+    <string name="version">Version:</string>
+    <string name="developers">Developers:</string>
+    <string name="about">About</string>
 
 </resources>
