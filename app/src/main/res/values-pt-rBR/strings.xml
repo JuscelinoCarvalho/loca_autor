@@ -36,6 +36,6 @@
     <string name="new_car_for_rent">Novo</string>
     <string name="version">Versão:</string>
     <string name="developers">Desenvolvedores:</string>
-    <string name="desc_loca_autos">This app will show you a list of vehicles that are available for rental. Regardless of the operator, we will show you the vehicle title and a description that will include the location/region and contact details of the rental company. We are not responsible for any of the agreements signed between the client and the lessor, nor are we responsible for damages of any nature. We are only here as a facilitator, so take advantage and check out our list below:</string>
+    <string name="desc_loca_autos">Este aplicativo lhe mostrará uma lista de veiculos que estao disponíveis para locação. Independente da operadora, lhes mostraremos o título do veículo e uma descrição que constará o local/região e dados de contato da empresa locadora. Não nos responsabilizamos por nenhum dos acordos firmados entre o cliente e o locadores, assim como não nos responsabilizamos por danos de qualquer natureza. Estamos aqui somente como um facilitador, portanto, aproveitem e consultem nossa lista abaixo:</string>
     <string name="about">Sobre</string>
 </resources>
