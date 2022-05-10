@@ -1,15 +1,14 @@
 package com.jussa.locaautos.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.jussa.locaautos.R
-
 
 class SuccessFragment : Fragment(), View.OnClickListener {
     lateinit var navController: NavController
@@ -20,13 +19,9 @@ class SuccessFragment : Fragment(), View.OnClickListener {
         argEmail = requireArguments().getString("argNome").toString()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_success, container, false)
-        //btnOk = requireView().findViewById(R.id.btnOkSuccess)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +35,4 @@ class SuccessFragment : Fragment(), View.OnClickListener {
             R.id.btnOkSuccess -> navController.navigate(R.id.action_successFragment_to_loginFragment)
         }
     }
-
-
 }

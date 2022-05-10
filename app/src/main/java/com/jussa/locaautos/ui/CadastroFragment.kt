@@ -1,9 +1,7 @@
 package com.jussa.locaautos.ui
 
-
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -23,10 +22,7 @@ class CadastroFragment : Fragment(), View.OnClickListener {
     private lateinit var txtNovoPassword: EditText
     private lateinit var connCreateUser: FirebaseAuth
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cadastro, container, false)
     }
@@ -39,9 +35,7 @@ class CadastroFragment : Fragment(), View.OnClickListener {
         view.findViewById<Button>(R.id.btnCadastroUsuario).setOnClickListener(this)
         txtNovoEmail = view.findViewById(R.id.txtNovoEmail)
         txtNovoPassword = view.findViewById(R.id.txtNovoPassword)
-
     }
-
 
     override fun onClick(v: View?) {
         when(v!!.id){
@@ -61,7 +55,8 @@ class CadastroFragment : Fragment(), View.OnClickListener {
                             .addOnFailureListener {
                                 Toast.makeText(context, "Ocorreu um erro ao criar o usuário: \n ${it.cause.toString()}", Toast.LENGTH_LONG).show()
                             }
-                    }catch (e: Exception){
+                    }
+                    catch (e: Exception){
                         Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
                     }
                 }

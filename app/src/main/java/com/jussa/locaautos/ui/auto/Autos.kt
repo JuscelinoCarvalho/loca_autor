@@ -9,17 +9,13 @@ import com.jussa.locaautos.data.DataAuto
 import java.io.ByteArrayOutputStream
 
 class Autos {
-    //private var cont: Context? = null
-
     // Null default values create a no-argument default constructor, which is needed
     // for deserialization from a DataSnapshot.
     private val nomeDB = "autos" //autos é o nome dó nó parent principal da base de dados no FireBase
-    //private val context: Context? = cont
     private val fBase = FirebaseDatabase.getInstance()
     private val fStorageInstance = FirebaseStorage.getInstance()
     private var fStorageRef = fStorageInstance.getReferenceFromUrl("gs://loca-auto-fiap.appspot.com")
     private val myRef = fBase.getReference(nomeDB)
-
 
     //Retorna o Path do Arquivo que foi feito Upload
     fun uploadAutoImage(bMap: Bitmap?, vChassi: String): String {
@@ -36,20 +32,20 @@ class Autos {
             if(bMap != null){
                // GlobalScope.launch {
                //     suspend {
-            //            Log.d("coroutineScope", "#runs on ${Thread.currentThread().name}")
+                //            Log.d("coroutineScope", "#runs on ${Thread.currentThread().name}")
 
-                        fileRef.putBytes(data)
-                            .addOnCompleteListener{
-                                Log.d("COMPLETE_TASK_UPLOAD", it.result.storage.path) //+ it.result.storage.name
-                            }
-                            .addOnSuccessListener {
-                                //strFinalPath = it.storage.path //+ it.storage.name
-                                Log.d("SUCCESS_TASK_UPLOAD", it.storage.path)
-                            }
-                            .addOnFailureListener{
-                                //Toast.makeText(context, "Erro ao efetuar o Upload da Imagem..:\n${it.printStackTrace()}", Toast.LENGTH_SHORT).show()
-                                Log.d("ERROR_UPLOAD", "Erro ao efetuar upload da imagem...")
-                            }
+            fileRef.putBytes(data)
+                .addOnCompleteListener{
+                    Log.d("COMPLETE_TASK_UPLOAD", it.result.storage.path) //+ it.result.storage.name
+                }
+                .addOnSuccessListener {
+                    //strFinalPath = it.storage.path //+ it.storage.name
+                    Log.d("SUCCESS_TASK_UPLOAD", it.storage.path)
+                }
+                .addOnFailureListener{
+                    //Toast.makeText(context, "Erro ao efetuar o Upload da Imagem..:\n${it.printStackTrace()}", Toast.LENGTH_SHORT).show()
+                    Log.d("ERROR_UPLOAD", "Erro ao efetuar upload da imagem...")
+                }
                 //while (t.isInProgress){
                 //    Log.d("WHILE PROGRESS...", "whilhe ${t.toString()}")
                 //}
@@ -59,11 +55,11 @@ class Autos {
              //       }.invoke()
             //    }
             }
-        }catch (ex: Exception){
+        }
+        catch (ex: Exception){
             //Toast.makeText(context, "Erro ao efetuar o Upload da Imagem..:\n${ex.printStackTrace()}", Toast.LENGTH_SHORT).show()
             Log.d("ERROR_UPLOAD", "Erro ao efetuar upload da imagem...\n${ex.printStackTrace()}")
         }
-        /////////////////// RETURN
         return fileRef.toString()
     }
 
@@ -120,8 +116,6 @@ class Autos {
         Imagem: String? = null,
         MarcaModelo: String? = null
     ) {
-        //val autos = Autos(NomeAuto, MarcaModelo, Descricao, Imagem, NUMBER )
-
         val vAuto = DataAuto(
             Chassi,
             Imagem,
@@ -129,17 +123,17 @@ class Autos {
             MarcaModelo
         )
 
-            if (Chassi != null && Chassi != "null" && Chassi != "") {
-                myRef.child(Chassi).setValue(vAuto)
-                    .addOnSuccessListener {
-                        Log.d("writeNewAuto_Jussa", "DADOS GRAVADOS COM SUCESSO!")
-                        //Toast.makeText(context, "DADOS GRAVADOS COM SUCESSO!", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Log.d("writeNewAuto_Jussa", "ERRO NA GRAVACAO DOS DADOS!")
-                        //Toast.makeText(context, "ERRO NA GRAVACAO DOS DADOS!", Toast.LENGTH_SHORT).show()
-                    }
-            }
+        if (Chassi != null && Chassi != "null" && Chassi != "") {
+            myRef.child(Chassi).setValue(vAuto)
+                .addOnSuccessListener {
+                    Log.d("writeNewAuto_Jussa", "DADOS GRAVADOS COM SUCESSO!")
+                    //Toast.makeText(context, "DADOS GRAVADOS COM SUCESSO!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Log.d("writeNewAuto_Jussa", "ERRO NA GRAVACAO DOS DADOS!")
+                    //Toast.makeText(context, "ERRO NA GRAVACAO DOS DADOS!", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun deleteImgAuto(vChassi: String) {
@@ -157,12 +151,12 @@ class Autos {
                         //Toast.makeText(context, "Erro ao efetuar o Upload da Imagem..:\n${it.printStackTrace()}", Toast.LENGTH_SHORT).show()
                         Log.d("ERROR_DELETE_IMG_AUTO", "Erro ao efetuar upload da imagem...")
                     }
-        }catch (ex: Exception){
+        }
+        catch (ex: Exception){
             //Toast.makeText(context, "Erro ao efetuar o Upload da Imagem..:\n${ex.printStackTrace()}", Toast.LENGTH_SHORT).show()
             Log.d("ERROR_UPLOAD", "Erro ao efetuar upload da imagem...\n${ex.printStackTrace()}")
         }
-    }/////////////DELETE IMG AUTO
-
+    }
 }
 
 

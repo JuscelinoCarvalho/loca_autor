@@ -23,7 +23,6 @@ import com.jussa.locaautos.LocaAutosAdapter
 import com.jussa.locaautos.R
 import com.jussa.locaautos.data.DataAuto
 
-
 class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickListener*/ {
 
     private lateinit var recyclerViewAuto: RecyclerView
@@ -41,7 +40,6 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -72,7 +70,6 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
 
         vListAutos = arrayListOf()
         getAutoData()
-
     }
 
     private fun getAutoData(){
@@ -96,7 +93,6 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
                     //Toast.makeText(context, "A tarefa foi cancelada!", Toast.LENGTH_SHORT).show()
                     Log.d("CANCELED", "Nao foi possivel obter os dados do Automovel.")
                 }
-
             }
         )
     }
@@ -114,8 +110,10 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
                     putExtra("MarcaModelo", "")
 
                 }
-                context?.let { ContextCompat.startActivity(it, intent, intent.extras) }
-            //navController.navigate(R.id.action_listAutoFragment_to_autoFragment)
+                context?.let {
+                    ContextCompat.startActivity(it, intent, intent.extras)
+                }
+                //navController.navigate(R.id.action_listAutoFragment_to_autoFragment)
             }
 
             imgBtnSignOut.id -> {
@@ -124,21 +122,19 @@ class ListAutoFragment : Fragment(), View.OnClickListener /*, View.OnLongClickLi
                     //Mata todas as telas e sai do aplicativo
                     finishAffinity(this.requireActivity())
                     navController.navigate(R.id.action_listAutoFragment_to_loginFragment)
-                }catch (e: Exception){
+                }
+                catch (e: Exception){
                     //Toast.makeText(context, "Erro ao tentar sair e voltar à tela de login.\n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
                     Log.d("ListAutoFragment", "Erro ao tentar sair e voltar a tela de login\n${e.printStackTrace()}")
                 }
-
             }
 
             imgBtnHome.id -> {
                 navController.navigate(R.id.action_listAutoFragment_to_homeFragment)
-
             }
 
             imgBtnAbout.id -> {
                 navController.navigate(R.id.action_listAutoFragment_to_aboutFragment)
-
             }
         }
     }

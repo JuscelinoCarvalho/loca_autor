@@ -1,6 +1,5 @@
 package com.jussa.locaautos.ui.login
 
-//import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -12,11 +11,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.Navigator
-import androidx.navigation.Navigator.Extras
 import com.google.firebase.auth.FirebaseAuth
 import com.jussa.locaautos.R
 
@@ -45,9 +41,7 @@ class LoginFragment : Fragment(), View.OnClickListener   {
         view.findViewById<Button>(R.id.btnRegister).setOnClickListener(this)
     }
 
-    //@RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(v: View?){
-        //progressBar.setTransitionVisibility(View.VISIBLE)
         when(v!!.id){
             R.id.btnRegister -> {
                 navController.navigate(R.id.action_loginFragment_to_cadastroFragment)
@@ -55,8 +49,6 @@ class LoginFragment : Fragment(), View.OnClickListener   {
             R.id.btnLogin -> {
                 try {
                     connect = FirebaseAuth.getInstance()
-                    //val vUser = connect.currentUser?.displayName
-                    //if (vUser == "" || vUser == null) {
 
                     if (!this.validateDataUser())
                         return
@@ -78,7 +70,6 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                             }
                           if(signIn.isCanceled){
                               Log.d("LOGIN_CANCELED", "Estrou no isCanceled do Login")
-                          //
                             }
                           if(signIn.isSuccessful) {
                                 bundle = bundleOf(
@@ -92,21 +83,17 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                                 //Toast.makeText(context,"Erro ao efetuar o login: \n ${it.exception.toString()}", Toast.LENGTH_LONG).show()
                             }
                         }
-                    //Add On Success
-                    // .addOnSuccessListener {
-                    //Toast.makeText(this.context, x.toString(), Toast.LENGTH_SHORT).show()
-                    //} //onSuccess
                     .addOnFailureListener {
                         Log.d("LoginFragment", "Erro ao efetuar o login: \n ${it.printStackTrace()}")
                         Toast.makeText(context, "Erro ao efetuar o login: \n ${it.printStackTrace()}", Toast.LENGTH_LONG).show()
-                    } //onFailure
-                }catch(e: Exception) {
+                    }
+                }
+                catch(e: Exception) {
                     Log.d("LoginFragment", "Error in the application!")
-                    //Toast.makeText(requireContext(), "Error in the application!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error in the application!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-        //progressBar.setProgress()
     }
 
     private fun validateDataUser(): Boolean {
@@ -140,4 +127,4 @@ class LoginFragment : Fragment(), View.OnClickListener   {
 
         return true
     }
-} /* CLASS */
+}

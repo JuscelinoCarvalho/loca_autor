@@ -98,18 +98,17 @@ class AutoFragment : Fragment(), View.OnClickListener {
                     }
                     imgVwCarro.setImageBitmap(bmp)
 
-                }catch (e: Exception){
+                }
+                catch (e: Exception){
                     Log.d("AutoFragment", "${e.printStackTrace()}")
                     //Toast.makeText(context, e.printStackTrace().toString(), Toast.LENGTH_SHORT).show()
                 }
-
             }
         }
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.auto_fragment, container, false)
     }
 
@@ -130,7 +129,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
             btnExcluir.visibility = VISIBLE
             btnCancelar.text = getString(R.string.voltar)
             view.findViewById<Button>(R.id.btnDeleteAuto).setOnClickListener(this)
-        }else {
+        }
+        else {
             btnExcluir.visibility = INVISIBLE
             btnCancelar.text = getString(R.string.cancelar)
         }
@@ -152,7 +152,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
                 .addOnFailureListener{
                     Log.d("ERROR onFailureListener", "Erro Jussa..: ${it.printStackTrace()}")
                 }
-        }catch (e: Exception){
+        }
+        catch (e: Exception){
             Log.d("ERROR DRAWABLE", "Erro Drawable Jussa..: ${e.printStackTrace()}")
         }
 
@@ -160,20 +161,14 @@ class AutoFragment : Fragment(), View.OnClickListener {
         view.findViewById<Button>(R.id.btnGravarCarro).setOnClickListener(this)
         view.findViewById<Button>(R.id.btnCancelarCarro).setOnClickListener(this)
 
-    } //ON VIEW CREATED
+    }
 
     @Suppress("unused")
-
-
     fun pickImage() {
-        val intent = Intent() //val intent = Intent(ACTION_PICK)
+        val intent = Intent()
         intent.type = "image/*"
         intent.action = ACTION_GET_CONTENT
-        //register.launch(intent) //Modo novo de chamada
-        register.launch(intent)
-
-       // startActivityForResult(intent, IMAGE_PICK_CODE) //Modo velho DEPRECATED
-        //intent.putExtra(EXTRA_ALLOW_MULTIPLE, false)
+        register.launch(intent)//Modo novo de chamada
     }
 
     @Deprecated("Deprecated in Java") //Método não é mais usado, pois está como DEPRECATED
@@ -184,7 +179,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
     //para obter a partir da camera de fotografia.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode==RESULT_OK && requestCode == IMAGE_PICK_CODE){
+        if(resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE){
             imgVwCarro.setImageURI(data?.data)
         }
     }
@@ -192,23 +187,20 @@ class AutoFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.imgCarro -> {
-                //Toast.makeText(context, "Você clicou em: \n${view.toString()}", Toast.LENGTH_SHORT).show()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(
-                            this.requireContext(),
-                            permission.READ_EXTERNAL_STORAGE
-                        ) == PackageManager.PERMISSION_DENIED
-                    ) {
+                    if (checkSelfPermission(this.requireContext(), permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                         //permission denied
                         val permission = permission.READ_EXTERNAL_STORAGE
                         //requestPermissions(permissions, PERMISSION_CODE)
                         permReqLauncher.launch(permission)
                         pickImage()
-                    } else {
+                    }
+                    else {
                         //permission already granted
                         pickImage()
                     }
-                } else {
+                }
+                else {
                     //System OS is < Marshmallow
                     pickImage()
                 }
@@ -224,21 +216,19 @@ class AutoFragment : Fragment(), View.OnClickListener {
                         vImage.toString(),
                         varTxtMarcaModelo.text.toString()
                     )
-                } catch (e: Exception) {
+                }
+                catch (e: Exception) {
                     Log.d("AutoFragment", "Erro na Aplicacao..: \n" + "${e.printStackTrace()}")
-                    //Toast.makeText(context, "Erro na Aplicação..: \n${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
                 }
                 navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
 
-            } //btnGravar
+            }
 
             R.id.btnCancelarCarro -> {
                 //context?.let { Autos(it) }?.readAutoByCHASSI("CHASSIGOL1990")
-                //if(btnCancelar.text == "VOLTAR"){
                 navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
                 //activity?.supportFragmentManager?.popBackStackImmediate(R.id.listAutoFragment,0)
                 //getFragmentManager().popBackStackImmediate();
-                //}
             }
             R.id.btnDeleteAuto -> {
                 val vkey = varTxtCHASSI.text.toString()
@@ -251,19 +241,18 @@ class AutoFragment : Fragment(), View.OnClickListener {
                 navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
             }
 
-        }//when
-
+        }
     }
 
-
-
     // Method to draw a circle on a canvas and generate bitmap
-    private fun drawCircle(bgColor:Int=Color.TRANSPARENT,
-                           circleColor:Int= Color.WHITE, width:Int=200, height:Int=200): Bitmap {
+    private fun drawCircle(bgColor:Int = Color.TRANSPARENT,
+                           circleColor:Int = Color.WHITE,
+                           width:Int = 200,
+                           height:Int = 200): Bitmap {
         // Initialize a new Bitmap object
         val bitmap: Bitmap = Bitmap.createBitmap(
-            width, // Width
-            height, // Height
+            width,
+            height,
             Bitmap.Config.ARGB_8888 // Config
         )
 

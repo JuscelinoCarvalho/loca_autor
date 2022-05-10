@@ -14,8 +14,7 @@ import com.jussa.locaautos.R
 class AboutFragment : Fragment(), View.OnClickListener   {
     private lateinit var navController: NavController
     private var labelVersionDescription: String = "1.0.1"
-    private var labelDevelopersDescription: String = "Juscelino Carvalho / Ricardo Lacerda"
-    //private var labelDevelopers: String = "Juscelino Carvalho / Ricardo Lacerda / Marcos Porto / Gabriel Batalha"
+    private var labelDevelopersDescription: String = "Juscelino Carvalho / Ricardo Lacerda / Marcos Porto / Gabriel Batalha"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_about, container, false)

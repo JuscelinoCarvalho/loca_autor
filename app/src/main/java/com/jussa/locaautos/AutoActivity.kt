@@ -1,6 +1,5 @@
 package com.jussa.locaautos
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,39 +8,37 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.jussa.locaautos.ui.auto.AutoFragmentArgs
 
-
 class AutoActivity() : AppCompatActivity(){
 
    companion object AutoActivity {
 
-       private const val IS_PRIVACY_POLICY_ACCEPTED="isPrivacyPolicyAccepted"
+       private const val IS_PRIVACY_POLICY_ACCEPTED = "isPrivacyPolicyAccepted"
        private const val IMAGE_PICK_CODE = 1000
        private const val PERMISSION_CODE = 1001
        lateinit var recyclerView: RecyclerView
 
-        fun open(context: Context, isAcceptedNewPrivacyPolicy: Boolean){
-            context.startActivity(
-            Intent(context,AutoActivity::class.java).apply {
-                putExtra(IS_PRIVACY_POLICY_ACCEPTED, "isPrivacyPolicyAccepted")
-                }
+        fun open(context: Context, isAcceptedNewPrivacyPolicy: Boolean) {
+            context.startActivity(Intent(context, AutoActivity::class.java).
+                    apply {
+                        putExtra(IS_PRIVACY_POLICY_ACCEPTED, "isPrivacyPolicyAccepted")
+                    }
             )
         }
-
-   } ///// COMPANION
+   }// COMPANION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto)
-
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_auto_fragment)
         val navControler = navHostFragment?.findNavController()
         val graphInflater = navControler?.navInflater
         val navGraph = graphInflater?.inflate(R.navigation.main_graph)
     
-        val destination = if (intent.getBooleanExtra(IS_PRIVACY_POLICY_ACCEPTED,false)){
+        val destination = if (intent.getBooleanExtra(IS_PRIVACY_POLICY_ACCEPTED,false)) {
             R.id.activity_auto
-        }else{
+        }
+        else {
             R.id.autoFragment
         }
 
@@ -50,7 +47,6 @@ class AutoActivity() : AppCompatActivity(){
         val vImage = intent.extras?.get("Imagem") as String
         val vDesc = intent.extras?.get("Descricao") as String
         val vMarcaModelo = intent.extras?.get("MarcaModelo") as String
-
 
         //O nome da classe do fragmento de start Args é uma classe gerada automaticamente
         //para podermos passar os argumentos da intent da Activity para o Fragment.
@@ -74,7 +70,4 @@ class AutoActivity() : AppCompatActivity(){
             }
         }
     }
-
-
-
 }
