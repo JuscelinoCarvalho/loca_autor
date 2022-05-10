@@ -42,12 +42,6 @@ class AutoActivity() : AppCompatActivity(){
             R.id.autoFragment
         }
 
-        val vUsuario = intent.extras?.get("Usuario") as String
-        val vChassi = intent.extras?.get("Chassi") as String
-        val vImage = intent.extras?.get("Imagem") as String
-        val vDesc = intent.extras?.get("Descricao") as String
-        val vMarcaModelo = intent.extras?.get("MarcaModelo") as String
-
         //O nome da classe do fragmento de start Args é uma classe gerada automaticamente
         //para podermos passar os argumentos da intent da Activity para o Fragment.
         if(intent.extras != null) {

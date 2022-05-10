@@ -46,14 +46,6 @@ class Autos {
                     //Toast.makeText(context, "Erro ao efetuar o Upload da Imagem..:\n${it.printStackTrace()}", Toast.LENGTH_SHORT).show()
                     Log.d("ERROR_UPLOAD", "Erro ao efetuar upload da imagem...")
                 }
-                //while (t.isInProgress){
-                //    Log.d("WHILE PROGRESS...", "whilhe ${t.toString()}")
-                //}
-              //          withContext(Dispatchers.Main) {
-              //              Log.d("coroutineScope", "#runs on ${Thread.currentThread().name}")
-              //          }
-             //       }.invoke()
-            //    }
             }
         }
         catch (ex: Exception){

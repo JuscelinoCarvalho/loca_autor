@@ -47,7 +47,7 @@ class CadastroFragment : Fragment(), View.OnClickListener {
                         connCreateUser.createUserWithEmailAndPassword(txtNovoEmail.text.toString(), txtNovoPassword.text.toString())
                             .addOnCompleteListener {
                                 if(it.isSuccessful){
-                                    Toast.makeText(context, "Usuário criado com SUCESSO!!!", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, getResources().getString(R.string.message_record_user_sucess), Toast.LENGTH_SHORT).show()
                                     val bundle = bundleOf("argUserLogin" to txtNovoEmail.text.toString())
                                     navController!!.navigate(R.id.action_cadastroFragment_to_successFragment, bundle)
                                 }

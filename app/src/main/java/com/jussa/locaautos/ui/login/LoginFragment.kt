@@ -100,21 +100,21 @@ class LoginFragment : Fragment(), View.OnClickListener   {
 
         if (vTxtEmailLogin.text.isNullOrEmpty() ||
                 vTxtEmailLogin.text.isNullOrBlank()) {
-            Log.d("LoginFragment", "Please type a e-mail \n")
-            Toast.makeText(context, "Please type a e-mail \n", Toast.LENGTH_LONG).show()
+            Log.d("LoginFragment", getResources().getString(R.string.message_user_input_email))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_email), Toast.LENGTH_LONG).show()
             return false
         }
 
         if (vTxtPassLogin.text.isNullOrEmpty() ||
                 vTxtPassLogin.text.isNullOrBlank()) {
-            Log.d("LoginFragment", "Please type a password \n")
-            Toast.makeText(context, "Please type a password \n", Toast.LENGTH_LONG).show()
+            Log.d("LoginFragment", getResources().getString(R.string.message_user_input_password))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_password), Toast.LENGTH_LONG).show()
             return false
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(vTxtEmailLogin.text).matches()) {
-            Log.d("LoginFragment", "Please type a valid e-mail \n")
-            Toast.makeText(context, "Please type a valid e-mail \n", Toast.LENGTH_LONG).show()
+            Log.d("LoginFragment", getResources().getString(R.string.message_user_input_valid_email))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_valid_email), Toast.LENGTH_LONG).show()
             return false
         }
 

@@ -45,5 +45,10 @@
     <string name="version">Version:</string>
     <string name="developers">Developers:</string>
     <string name="about">About</string>
+    <string name="message_sucess">Record Data Sucess!</string>
+    <string name="message_record_user_sucess">Record User Sucess!</string>
+    <string name="message_user_input_email">Please type a e-mail! \n</string>
+    <string name="message_user_input_valid_email">Please type a valid e-mail! \n</string>
+    <string name="message_user_input_password">Please type a password! \n</string>
 
 </resources>
