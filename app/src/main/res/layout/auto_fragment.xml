@@ -9,8 +9,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgCarro"
-        android:layout_width="387dp"
-        android:layout_height="229dp"
+        android:layout_width="379dp"
+        android:layout_height="222dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
@@ -20,18 +20,18 @@
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/txtDescricaoVeiculo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMarcaModelo"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="DuplicateSpeakableTextCheck"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/txtChassi"
+        app:layout_constraintVertical_bias="0.454"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/txtMarcaModelo"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="395dp"
+        android:layout_height="33dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:background="@color/teal_200"
@@ -40,14 +40,27 @@
         android:inputType="textPersonName"
         android:textColorHint="#004D40"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/txtChassi"
+        android:layout_width="383dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="4dp"
+        android:autofillHints="name"
+        android:ems="17"
+        android:hint="@string/chassi_example"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/txtDescricaoVeiculo"
+        app:layout_constraintTop_toBottomOf="@+id/txtMarcaModelo"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
         android:id="@+id/txtDescricaoVeiculo"
-        android:layout_width="380dp"
-        android:layout_height="200dp"
+        android:layout_width="381dp"
+        android:layout_height="160dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="280dp"
         android:layout_marginEnd="8dp"
@@ -62,12 +75,12 @@
         android:textColorHint="#004D40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMarcaModelo"
-        app:layout_constraintVertical_bias="0.986" />
+        app:layout_constraintTop_toBottomOf="@+id/txtChassi"
+        app:layout_constraintVertical_bias="0.865" />
 
     <Button
         android:id="@+id/btnGravarCarro"
@@ -107,25 +120,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txtDescricaoVeiculo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgCarro"
-        >
-
-        <EditText
-            android:id="@+id/txtChassi"
-            android:layout_width="378dp"
-            android:layout_height="55dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:autofillHints="name"
-            android:ems="17"
-            android:hint="@string/chassi_example"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-
-            tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/imgCarro">
 
     </com.google.android.material.textfield.TextInputLayout>
 

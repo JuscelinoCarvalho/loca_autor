@@ -9,8 +9,6 @@ import com.jussa.locaautos.data.DataAuto
 import java.io.ByteArrayOutputStream
 
 class Autos {
-    // Null default values create a no-argument default constructor, which is needed
-    // for deserialization from a DataSnapshot.
     private val nomeDB = "autos" //autos é o nome dó nó parent principal da base de dados no FireBase
     private val fBase = FirebaseDatabase.getInstance()
     private val fStorageInstance = FirebaseStorage.getInstance()
@@ -30,9 +28,6 @@ class Autos {
 
         try {
             if(bMap != null){
-               // GlobalScope.launch {
-               //     suspend {
-                //            Log.d("coroutineScope", "#runs on ${Thread.currentThread().name}")
 
             fileRef.putBytes(data)
                 .addOnCompleteListener{

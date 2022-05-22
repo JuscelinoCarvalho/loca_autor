@@ -30,7 +30,6 @@ class LoginFragment : Fragment(), View.OnClickListener   {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        connect = FirebaseAuth.getInstance()
 
         navController = Navigation.findNavController(view)
 
@@ -58,15 +57,7 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                         )
                       .addOnCompleteListener {signIn ->
                             if(signIn.isComplete){
-                                Log.d("LOGIN_COMPLETE", "Estrou no isComplete do Login")
-                                /*
-                                bundle = bundleOf(
-                                    "argEmail" to vTxtEmailLogin.text.toString(),
-                                    "argPassword" to vTxtPassLogin.text.toString()
-                                )
-                                //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
-                                navController.navigate(R.id.action_loginFragment_to_homeFragment)
-                            */
+                                Log.d("LOGIN_COMPLETE", "Estou no isComplete do Login")
                             }
                           if(signIn.isCanceled){
                               Log.d("LOGIN_CANCELED", "Estrou no isCanceled do Login")
@@ -76,16 +67,15 @@ class LoginFragment : Fragment(), View.OnClickListener   {
                                     "argEmail" to vTxtEmailLogin.text.toString(),
                                     "argPassword" to vTxtPassLogin.text.toString()
                                 )
-                                //navController.navigate(R.id.action_loginFragment_to_listAutoFragment, bundle)
                                 navController.navigate(R.id.action_loginFragment_to_homeFragment, bundle)
-                            }else{
+                            }
+                          else{
                                 Log.d("LoginFragment", "Erro ao efetuar login: \n${signIn.exception.toString()}")
-                                //Toast.makeText(context,"Erro ao efetuar o login: \n ${it.exception.toString()}", Toast.LENGTH_LONG).show()
                             }
                         }
                     .addOnFailureListener {
-                        Log.d("LoginFragment", "Erro ao efetuar o login: \n ${it.printStackTrace()}")
-                        Toast.makeText(context, "Erro ao efetuar o login: \n ${it.printStackTrace()}", Toast.LENGTH_LONG).show()
+                        Log.d("LoginFragment", getResources().getString(R.string.message_user_input_password_valid))
+                        Toast.makeText(context, getResources().getString(R.string.message_user_input_password_valid), Toast.LENGTH_LONG).show()
                     }
                 }
                 catch(e: Exception) {
@@ -119,9 +109,8 @@ class LoginFragment : Fragment(), View.OnClickListener   {
         }
 
         if (vTxtPassLogin.text.length < countValidationPassword) {
-            Log.d("LoginFragment", "Please type a password equals or greather than $countValidationPassword digits \n"
-            )
-            Toast.makeText(context, "Please type a password  equals or greather than $countValidationPassword digits\n", Toast.LENGTH_LONG).show()
+            Log.d("LoginFragment", getResources().getString(R.string.message_user_input_password_equals_or_greather))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_password_equals_or_greather), Toast.LENGTH_LONG).show()
             return false
         }
 

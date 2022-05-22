@@ -30,7 +30,7 @@
     <string name="select_all">Selecione Todos</string>
     <string name="new_auto">Novo</string>
     <string name="delete_itens">Excluir Itens</string>
-    <string name="lista_de_ve_culos_dispon_veis">Lista de Veículos Disponíveis</string>
+    <string name="botao_lista_veiculos">Lista de Veículos Disponíveis</string>
     <string name="sair">Sair</string>
     <string name="pagina_principal">Home</string>
     <string name="new_car_for_rent">Novo</string>
@@ -43,4 +43,11 @@
     <string name="message_user_input_email">Por Favor, insira um e-mail !</string>
     <string name="message_user_input_valid_email">Por Favor, insira um e-mail válido! \n</string>
     <string name="message_user_input_password">Por Favor, insira uma senha!</string>
+    <string name="message_user_input_password_equals_or_greather">Por Favor, insira uma senha maior ou igual a 6 digitos \n</string>
+    <string name="message_user_input_password_valid">Por Favor, insira e-mail ou senha cadastrados! \n</string>
+    <string name="message_auto_input_model_vehicle">"Por Favor, informe a marca / modelo do veículo! \n</string>
+    <string name="message_auto_input_image_vehicle">"Por Favor, insira a imagem do veículo! \n</string>
+    <string name="message_auto_input_description_vehicle">"Por Favor, informe a descrição do veículo! \n</string>
+    <string name="message_auto_input_chassi">"Por Favor, informe o chassi! \n</string>
+    <string name="message_auto_input_chassi_valid">Por Favor, informe o chassi! do veículo maior ou igual a 17 digitos \n</string>
 </resources>

@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.checkSelfPermission
@@ -52,9 +53,7 @@ class AutoFragment : Fragment(), View.OnClickListener {
     private lateinit var varTxtDescricaoVeiculo: EditText
     private lateinit var navController: NavController
     private lateinit var bmp: Bitmap
-
-//    private var refBase = FirebaseStorage.getInstance().reference.child("loca_autos_img/")
-
+    private var countValidationPassword: Int = 17
 
     companion object {
         private const val IMAGE_PICK_CODE = 1000
@@ -64,7 +63,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
         isGranted ->
         if (isGranted){
             Log.i("DEBUG", "Permission Granted!!!")
-        }else{
+        }
+        else{
             Log.i("DEBUG", "Permission DENIED!!!")
         }
     }
@@ -74,10 +74,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
 
         vUsuario = requireActivity().intent.extras?.get("Usuario") as String
         vChassi = requireActivity().intent.extras?.get("Chassi") as String
-        //vImage = requireActivity().intent.extras?.get("Imagem") as String
         vDesc = requireActivity().intent.extras?.get("Descricao") as String
         vMarcaModelo = requireActivity().intent.extras?.get("MarcaModelo") as String
-
 
         permReqLauncher.launch(permission.READ_EXTERNAL_STORAGE)
 
@@ -92,7 +90,6 @@ class AutoFragment : Fragment(), View.OnClickListener {
                         @Suppress("DEPRECATION")
                         MediaStore.Images.Media.getBitmap(this.requireContext().contentResolver, imageUri)
                     }
-                   // bmp = BitmapFactory.decodeFile(imageUri.toString())
                     if(!::imgVwCarro.isInitialized){
                         imgVwCarro = view?.findViewById(R.id.imgCarro)!!
                     }
@@ -101,11 +98,9 @@ class AutoFragment : Fragment(), View.OnClickListener {
                 }
                 catch (e: Exception){
                     Log.d("AutoFragment", "${e.printStackTrace()}")
-                    //Toast.makeText(context, e.printStackTrace().toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -135,7 +130,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
             btnCancelar.text = getString(R.string.cancelar)
         }
 
-        val fbaseInstance = FirebaseStorage.getInstance() //.getReferenceFromUrl("gs://loca-auto-fiap.appspot.com")
+        // url firebase -> "gs://loca-auto-fiap.appspot.com"
+        val fbaseInstance = FirebaseStorage.getInstance()
         val fbaseStore = fbaseInstance.getReference("loca_autos_img/")
         try {
 
@@ -171,14 +167,8 @@ class AutoFragment : Fragment(), View.OnClickListener {
         register.launch(intent)//Modo novo de chamada
     }
 
-    @Deprecated("Deprecated in Java") //Método não é mais usado, pois está como DEPRECATED
-    // Substitui pelo register declarando como RegisterActivityForResultLauncher inicializado
-    //no metodo onCreate pois nos Fragments ele dá erro se implementa-lo depois de criado o Fragment
-    //então chamado com o método ...launch() passando a Intent já com type 'image/*' e action
-    //igual a ACTION_GET_CONTENT para abrir a galeria. Também poderia chamar como IMAGE_PICK
-    //para obter a partir da camera de fotografia.
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE){
             imgVwCarro.setImageURI(data?.data)
         }
@@ -207,28 +197,29 @@ class AutoFragment : Fragment(), View.OnClickListener {
             }
             R.id.btnGravarCarro -> {
 
+                if (!this.validateData())
+                    return
+
                 try {
                     bmp = imgVwCarro.drawable.toBitmap()
-                    vImage = context?.let { Autos() }?.uploadAutoImage(bmp, varTxtCHASSI.text.toString())
-                    context?.let { Autos() }?.writeNewAuto(
-                        varTxtCHASSI.text.toString(),
-                        varTxtDescricaoVeiculo.text.toString(),
-                        vImage.toString(),
-                        varTxtMarcaModelo.text.toString()
-                    )
+                    vImage = context?.let {
+                                        Autos()
+                                    }?.uploadAutoImage(bmp, varTxtCHASSI.text.toString())
+                    context?.let {
+                                Autos()
+                            }?.writeNewAuto(varTxtCHASSI.text.toString(),
+                                            varTxtDescricaoVeiculo.text.toString(),
+                                            vImage.toString(),
+                                            varTxtMarcaModelo.text.toString())
                 }
                 catch (e: Exception) {
                     Log.d("AutoFragment", "Erro na Aplicacao..: \n" + "${e.printStackTrace()}")
                 }
                 navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
-
             }
 
             R.id.btnCancelarCarro -> {
-                //context?.let { Autos(it) }?.readAutoByCHASSI("CHASSIGOL1990")
                 navController.navigate(R.id.action_autoFragment_to_listAutoFragment)
-                //activity?.supportFragmentManager?.popBackStackImmediate(R.id.listAutoFragment,0)
-                //getFragmentManager().popBackStackImmediate();
             }
             R.id.btnDeleteAuto -> {
                 val vkey = varTxtCHASSI.text.toString()
@@ -279,10 +270,42 @@ class AutoFragment : Fragment(), View.OnClickListener {
             (canvas.width / 2).toFloat(), // cx
             (canvas.height / 2).toFloat(), // cy
             (radius - padding).toFloat(), // Radius
-            paint // Paint
+            paint
         )
 
         // Return the newly created bitmap
         return bitmap
+    }
+
+    private fun validateData(): Boolean {
+
+        if (varTxtMarcaModelo.text.toString().isNullOrEmpty() ||
+                varTxtMarcaModelo.text.toString().isNullOrBlank()) {
+            Log.d("AutoFragment", getResources().getString(R.string.message_auto_input_model_vehicle))
+            Toast.makeText(context, getResources().getString(R.string.message_auto_input_model_vehicle), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (vImage.toString().isNullOrEmpty() ||
+                vImage.toString().isNullOrBlank()) {
+            Log.d("AutoFragment", getResources().getString(R.string.message_auto_input_image_vehicle))
+            Toast.makeText(context, getResources().getString(R.string.message_auto_input_image_vehicle), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (varTxtCHASSI.text.isNullOrEmpty() ||
+                varTxtCHASSI.text.isNullOrBlank()) {
+            Log.d("AutoFragment", getResources().getString(R.string.message_auto_input_chassi))
+            Toast.makeText(context, getResources().getString(R.string.message_auto_input_chassi), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (varTxtCHASSI.text.length < countValidationPassword) {
+            Log.d("AutoFragment", getResources().getString(R.string.message_auto_input_chassi_valid))
+            Toast.makeText(context, getResources().getString(R.string.message_auto_input_chassi_valid), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        return true
     }
 }

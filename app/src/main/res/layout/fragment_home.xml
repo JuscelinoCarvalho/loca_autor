@@ -50,14 +50,13 @@
             android:id="@+id/btnOpenListAutos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:layout_marginBottom="208dp"
-            android:text="@string/lista_de_ve_culos_dispon_veis"
+            android:text="@string/botao_lista_veiculos"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDescLocaAutos">
+            app:layout_constraintTop_toTopOf="@+id/txtLogoLocaAutos"
+            app:layout_constraintVertical_bias="0.702">
 
         </Button>
 
@@ -70,9 +69,10 @@
             android:text="@string/sair"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnOpenListAutos">
+            app:layout_constraintTop_toBottomOf="@+id/btnOpenListAutos"
+            app:layout_constraintVertical_bias="1.0">
 
         </Button>
 

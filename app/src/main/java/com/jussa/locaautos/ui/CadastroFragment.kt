@@ -2,6 +2,8 @@ package com.jussa.locaautos.ui
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +22,10 @@ class CadastroFragment : Fragment(), View.OnClickListener {
     var navController: NavController? = null
     private lateinit var txtNovoEmail: EditText
     private lateinit var txtNovoPassword: EditText
+    private var countValidationPassword: Int = 6
     private lateinit var connCreateUser: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cadastro, container, false)
     }
 
@@ -41,6 +43,10 @@ class CadastroFragment : Fragment(), View.OnClickListener {
         when(v!!.id){
             R.id.btnCancelar -> requireActivity().onBackPressed()
             R.id.btnCadastroUsuario -> {
+
+                if (!this.validateDataUser())
+                    return
+
                 if(!TextUtils.isEmpty(txtNovoEmail.text.toString()) && !TextUtils.isEmpty(txtNovoPassword.text.toString()) ){
                     try {
                         connCreateUser = FirebaseAuth.getInstance()
@@ -62,10 +68,36 @@ class CadastroFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-        //Eu poderia ter utilizado outra sintax
-        //como R.id.btnCancelar -> activity!!.onBackPressed() após a seta ->
-        //mas mantive com o navigate pela action mesmo apenas para exercitar.
-        //Ao final voltei a usar o onBackPressed pois as animações não
-        // funcionariam como esperado
+    }
+
+    private fun validateDataUser(): Boolean {
+
+        if (txtNovoEmail.text.isNullOrEmpty() ||
+                txtNovoEmail.text.isNullOrBlank()) {
+            Log.d("CadastroFragment", getResources().getString(R.string.message_user_input_email))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_email), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (txtNovoPassword.text.isNullOrEmpty() ||
+                txtNovoPassword.text.isNullOrBlank()) {
+            Log.d("CadastroFragment", getResources().getString(R.string.message_user_input_password))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_password), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(txtNovoEmail.text).matches()) {
+            Log.d("CadastroFragment", getResources().getString(R.string.message_user_input_valid_email))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_valid_email), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (txtNovoPassword.text.length < countValidationPassword) {
+            Log.d("CadastroFragment", getResources().getString(R.string.message_user_input_password_valid))
+            Toast.makeText(context, getResources().getString(R.string.message_user_input_password_valid), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        return true
     }
 }

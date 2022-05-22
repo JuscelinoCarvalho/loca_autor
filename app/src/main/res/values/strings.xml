@@ -37,7 +37,7 @@
     <string name="new_auto">* New</string>
     <string name="delete_itens">Delete Itens..</string>
     <string name="loca_autos" translatable="false">LOCA AUTOS</string>
-    <string name="lista_de_ve_culos_dispon_veis">List of Available Vehicles</string>
+    <string name="botao_lista_veiculos">List of Available Vehicles</string>
     <string name="desc_loca_autos">This app will show you a list of vehicles that are available for rental. Regardless of the operator, we will show you the vehicle title and a description that will include the location/region and contact details of the rental company. We are not responsible for any of the agreements signed between the client and the lessor, nor are we responsible for damages of any nature. We are only here as a facilitator, so take advantage and check out our list below:</string>
     <string name="sair">Go Out</string>
     <string name="pagina_principal">Início</string>
@@ -50,5 +50,12 @@
     <string name="message_user_input_email">Please type a e-mail! \n</string>
     <string name="message_user_input_valid_email">Please type a valid e-mail! \n</string>
     <string name="message_user_input_password">Please type a password! \n</string>
+    <string name="message_user_input_password_equals_or_greather">Please type a password equals or greather than 6 digits \n</string>
+    <string name="message_user_input_password_valid">Please type a record e-mail or password! \n</string>
+    <string name="message_auto_input_model_vehicle">Please type a brand / model vehicle! \n</string>
+    <string name="message_auto_input_image_vehicle">Please type a image vehicle! \n</string>
+    <string name="message_auto_input_description_vehicle">Please type a description vehicle! \n</string>
+    <string name="message_auto_input_chassi">Please type a chassi vehicle! \n</string>
+    <string name="message_auto_input_chassi_valid">Please type a chassi vehicle equals or greather than 17 digits! \n</string>
 
 </resources>
